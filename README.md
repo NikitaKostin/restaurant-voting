@@ -1,1 +1,1 @@
-# RestaurantVoting
+# Restaurant Voting
