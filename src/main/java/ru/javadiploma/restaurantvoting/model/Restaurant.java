@@ -1,4 +1,4 @@
-package model;
+package ru.javadiploma.restaurantvoting.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

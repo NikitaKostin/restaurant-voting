@@ -1,19 +1,25 @@
-package model;
+package ru.javadiploma.restaurantvoting.model;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "restaurant_id", "vote_date_time"}, name = "user_vote_unique_user_restaurant_vote_date_time_idx")})
+@Table(name = "user_vote",  uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "restaurant_id", "vote_date_time"}, name = "user_vote_unique_user_restaurant_vote_date_time_idx")})
 public class UserVote extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Restaurant restaurant;
 
@@ -21,9 +27,12 @@ public class UserVote extends AbstractBaseEntity {
     @NotNull
     private LocalDateTime voteDateTime;
 
-    public UserVote(User user, Restaurant restaurant, LocalDateTime voteDateTime) {
-        this.user = user;
-        this.restaurant = restaurant;
+    public UserVote(Integer id) {
+        super(id);
+    }
+
+    public UserVote(Integer id, LocalDateTime voteDateTime) {
+        super(id);
         this.voteDateTime = voteDateTime;
     }
 
@@ -50,15 +59,10 @@ public class UserVote extends AbstractBaseEntity {
         return voteDateTime;
     }
 
-    public void setVoteDateTime(LocalDateTime voteDateTime) {
-        this.voteDateTime = voteDateTime;
-    }
-
     @Override
     public String toString() {
         return "UserVote{" +
-                "user=" + user +
-                ", restaurant=" + restaurant +
+                "id=" + id +
                 ", voteDateTime=" + voteDateTime +
                 '}';
     }

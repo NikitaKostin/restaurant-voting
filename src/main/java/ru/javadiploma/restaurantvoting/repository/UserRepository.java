@@ -1,6 +1,6 @@
-package repository;
+package ru.javadiploma.restaurantvoting.repository;
 
-import model.User;
+import ru.javadiploma.restaurantvoting.model.User;
 
 import java.util.List;
 
@@ -11,5 +11,6 @@ public interface UserRepository {
     // null if not found
     User get(int id);
 
-    List<User> getAll();
+    // null if not found
+    User getByEmail(String email);
 }

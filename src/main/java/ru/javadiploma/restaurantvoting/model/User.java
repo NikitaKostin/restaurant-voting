@@ -1,4 +1,4 @@
-package model;
+package ru.javadiploma.restaurantvoting.model;
 
 import org.springframework.util.CollectionUtils;
 
@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
+
 
 @Entity
 @Table(name = "users")
@@ -72,7 +73,6 @@ public class User extends AbstractNamedEntity {
     public void setRegistered(Date registered) {
         this.registered = registered;
     }
-
 
     public Set<Role> getRoles() {
         return roles;

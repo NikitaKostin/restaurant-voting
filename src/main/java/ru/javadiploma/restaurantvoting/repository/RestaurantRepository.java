@@ -1,6 +1,6 @@
-package repository;
+package ru.javadiploma.restaurantvoting.repository;
 
-import model.Restaurant;
+import ru.javadiploma.restaurantvoting.model.Restaurant;
 
 import java.util.List;
 
@@ -10,6 +10,4 @@ public interface RestaurantRepository {
 
     // null if not found
     Restaurant get(int id);
-
-    List<Restaurant> getAll();
 }

@@ -1,9 +1,10 @@
-package model;
+package ru.javadiploma.restaurantvoting.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
 
 @MappedSuperclass
 public abstract class AbstractNamedEntity extends AbstractBaseEntity {

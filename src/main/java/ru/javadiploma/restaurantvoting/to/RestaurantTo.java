@@ -1,4 +1,4 @@
-package to;
+package ru.javadiploma.restaurantvoting.to;
 
 public class RestaurantTo {
     private final Integer id;
