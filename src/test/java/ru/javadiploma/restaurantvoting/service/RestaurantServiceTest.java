@@ -53,4 +53,9 @@ public class RestaurantServiceTest {
         RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
         RESTAURANT_MATCHER.assertMatch(restaurantService.get(newId), newRestaurant);
     }
+
+    @Test
+    public void getAll() {
+        RESTAURANT_MATCHER.assertMatch(restaurantService.getAll(), restaurants);
+    }
 }

@@ -10,4 +10,6 @@ public interface RestaurantRepository {
 
     // null if not found
     Restaurant get(int id);
+
+    List<Restaurant> getAll();
 }

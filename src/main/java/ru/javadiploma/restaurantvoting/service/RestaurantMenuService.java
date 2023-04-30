@@ -6,6 +6,8 @@ import ru.javadiploma.restaurantvoting.model.RestaurantMenu;
 import ru.javadiploma.restaurantvoting.repository.RestaurantMenuRepository;
 import ru.javadiploma.restaurantvoting.util.ValidationUtil;
 
+import java.util.List;
+
 import static ru.javadiploma.restaurantvoting.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -32,5 +34,9 @@ public class RestaurantMenuService {
     public RestaurantMenu create(RestaurantMenu restaurantMenu, int restaurantId) {
         Assert.notNull(restaurantMenu, "menu must not be null");
         return restaurantMenuRepository.save(restaurantMenu, restaurantId);
+    }
+
+    public List<RestaurantMenu> getAll(int restaurantId) {
+        return restaurantMenuRepository.getAll(restaurantId);
     }
 }

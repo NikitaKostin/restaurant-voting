@@ -4,6 +4,8 @@ import org.springframework.stereotype.Repository;
 import ru.javadiploma.restaurantvoting.model.RestaurantMenu;
 import ru.javadiploma.restaurantvoting.repository.RestaurantMenuRepository;
 
+import java.util.List;
+
 @Repository
 public class DataJpaRestaurantMenuRepository implements RestaurantMenuRepository {
     private final CrudRestaurantMenuRepository crudRestaurantMenuRepository;
@@ -33,5 +35,10 @@ public class DataJpaRestaurantMenuRepository implements RestaurantMenuRepository
     @Override
     public boolean delete(int id, int restaurantId) {
         return crudRestaurantMenuRepository.delete(id, restaurantId) != 0;
+    }
+
+    @Override
+    public List<RestaurantMenu> getAll(int restaurantId) {
+        return crudRestaurantMenuRepository.getAll(restaurantId);
     }
 }

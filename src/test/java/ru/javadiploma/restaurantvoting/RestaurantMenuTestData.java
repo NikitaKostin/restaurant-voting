@@ -4,6 +4,7 @@ import ru.javadiploma.restaurantvoting.model.RestaurantMenu;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
 public class RestaurantMenuTestData {
     public static final MatcherFactory.Matcher<RestaurantMenu> RESTAURANT_MENU_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(RestaurantMenu.class, "restaurant");
@@ -20,6 +21,8 @@ public class RestaurantMenuTestData {
     public static final RestaurantMenu restaurantMenu3 = new RestaurantMenu(RESTAURANT_MENU_3_ID, "Компот", 40, LocalDate.of(2020, Month.APRIL, 4));
     public static final RestaurantMenu restaurantMenu4 = new RestaurantMenu(RESTAURANT_MENU_4_ID, "Чай", 40, LocalDate.of(2020, Month.APRIL, 5));
     public static final RestaurantMenu restaurantMenu8Now = new RestaurantMenu(RESTAURANT_MENU_8_ID, "Блюдо дня", 100, LocalDate.now());
+
+    public static final List<RestaurantMenu> firstRestaurantMenu = List.of(restaurantMenu1, restaurantMenu2, restaurantMenu3, restaurantMenu4, restaurantMenu8Now);
 
     public static RestaurantMenu getNew() {
         return new RestaurantMenu(null, "Новое блюдо", 102, LocalDate.now());

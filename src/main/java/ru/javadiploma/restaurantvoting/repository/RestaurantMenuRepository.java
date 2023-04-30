@@ -13,4 +13,6 @@ public interface RestaurantMenuRepository {
 
     // false if not found
     boolean delete(int id, int restaurantId);
+
+    List<RestaurantMenu> getAll(int restaurantId);
 }
