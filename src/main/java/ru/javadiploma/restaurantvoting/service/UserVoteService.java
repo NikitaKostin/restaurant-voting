@@ -24,4 +24,8 @@ public class UserVoteService {
     public UserVote get(int id, int userId, int restaurantId) {
         return checkNotFoundWithId(userVoteRepository.get(id, userId, restaurantId), id);
     }
+
+    public UserVote getWithUserAndRestaurant(int id, int userId, int restaurantId) {
+        return checkNotFoundWithId(userVoteRepository.getWithUserAndRestaurant(id, userId, restaurantId), id);
+    }
 }

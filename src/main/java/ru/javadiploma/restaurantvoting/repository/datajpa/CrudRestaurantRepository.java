@@ -12,5 +12,5 @@ import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
-    Optional<Restaurant> findById(Integer id);
+    Optional<Restaurant> findById(int id);
 }

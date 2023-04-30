@@ -49,4 +49,11 @@ public class UserVoteServiceTest {
         UserVote userVote = userVoteService.get(USER_VOTE_1_ID, USER_ID, RESTAURANT_1_ID);
         USER_VOTE_MATCHER.assertMatch(userVote, userVote1);
     }
+
+    @Test
+    public void getWithUserAndRestaurant() {
+        UserVote userVote = userVoteService.getWithUserAndRestaurant(USER_VOTE_1_ID, USER_ID, RESTAURANT_1_ID);
+        assertEquals(userVote.getUser().id(), USER_ID);
+        assertEquals(userVote.getRestaurant().id(), RESTAURANT_1_ID);
+    }
 }

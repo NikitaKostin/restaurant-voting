@@ -15,4 +15,8 @@ public interface RestaurantMenuRepository {
     boolean delete(int id, int restaurantId);
 
     List<RestaurantMenu> getAll(int restaurantId);
+
+    default RestaurantMenu getWithRestaurant(int id, int restaurantId) {
+        throw new UnsupportedOperationException();
+    }
 }

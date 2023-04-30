@@ -13,6 +13,7 @@ import ru.javadiploma.restaurantvoting.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static ru.javadiploma.restaurantvoting.RestaurantMenuTestData.*;
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_1_ID;
@@ -34,6 +35,12 @@ public class RestaurantMenuServiceTest {
     public void get() {
         RestaurantMenu restaurantMenu = restaurantMenuService.get(RESTAURANT_MENU_1_ID, RESTAURANT_1_ID);
         RESTAURANT_MENU_MATCHER.assertMatch(restaurantMenu, restaurantMenu1);
+    }
+
+    @Test
+    public void getWithRestaurant() {
+        RestaurantMenu restaurantMenu = restaurantMenuService.getWithRestaurant(RESTAURANT_MENU_1_ID, RESTAURANT_1_ID);
+        assertEquals(restaurantMenu.getRestaurant().id(), RESTAURANT_1_ID);
     }
 
     @Test

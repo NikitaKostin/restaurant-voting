@@ -41,4 +41,9 @@ public class DataJpaRestaurantMenuRepository implements RestaurantMenuRepository
     public List<RestaurantMenu> getAll(int restaurantId) {
         return crudRestaurantMenuRepository.getAll(restaurantId);
     }
+
+    @Override
+    public RestaurantMenu getWithRestaurant(int id, int restaurantId) {
+        return crudRestaurantMenuRepository.getWithRestaurant(id, restaurantId).orElse(null);
+    }
 }

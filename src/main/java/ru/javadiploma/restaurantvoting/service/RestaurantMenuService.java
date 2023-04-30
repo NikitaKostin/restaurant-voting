@@ -22,6 +22,10 @@ public class RestaurantMenuService {
         return checkNotFoundWithId(restaurantMenuRepository.get(id, restaurantId), id);
     }
 
+    public RestaurantMenu getWithRestaurant(int id, int userId) {
+        return checkNotFoundWithId(restaurantMenuRepository.getWithRestaurant(id, userId), id);
+    }
+
     public void delete(int id, int restaurantId) {
         ValidationUtil.checkNotFoundWithId(restaurantMenuRepository.delete(id, restaurantId), id);
     }

@@ -4,9 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.javadiploma.restaurantvoting.model.UserVote;
 import ru.javadiploma.restaurantvoting.repository.UserVoteRepository;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
 @Repository
 public class DataJpaUserVoteRepository implements UserVoteRepository {
@@ -33,5 +31,10 @@ public class DataJpaUserVoteRepository implements UserVoteRepository {
     @Override
     public UserVote get(int id, int userId, int restaurantId) {
         return crudUserVoteRepository.findByIdAndUserIdAndRestaurantId(id, userId, restaurantId).orElse(null);
+    }
+
+    @Override
+    public UserVote getWithUserAndRestaurant(int id, int userId, int restaurantId) {
+        return crudUserVoteRepository.getWithUserAndRestaurant(id, userId, restaurantId).orElse(null);
     }
 }

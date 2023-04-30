@@ -17,8 +17,11 @@ public interface CrudRestaurantMenuRepository extends JpaRepository<RestaurantMe
     @Query("DELETE FROM RestaurantMenu rm WHERE rm.id=:id AND rm.restaurant.id=:restaurantId")
     int delete(@Param("id") int id, @Param("restaurantId") int restaurantId);
 
-    Optional<RestaurantMenu> findByIdAndRestaurantId(Integer id, Integer restaurantId);
+    Optional<RestaurantMenu> findByIdAndRestaurantId(int id, int restaurantId);
 
     @Query("SELECT rm FROM RestaurantMenu rm WHERE rm.restaurant.id=:restaurantId")
     List<RestaurantMenu> getAll(@Param("restaurantId") int restaurantId);
+
+    @Query("SELECT rm FROM RestaurantMenu rm JOIN FETCH rm.restaurant WHERE rm.id= ?1 AND rm.restaurant.id= ?2")
+    Optional<RestaurantMenu> getWithRestaurant(int id, int restaurantId);
 }
