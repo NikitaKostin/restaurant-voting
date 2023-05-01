@@ -15,18 +15,18 @@ VALUES ('USER', 1),
        ('ADMIN', 2);
 
 INSERT INTO restaurant (id, name)
-VALUES (1, 'Чебуречная'),
-       (2, 'Пельменная');
+VALUES (1, 'Burger cafe'),
+       (2, 'Pizza cafe');
 
 INSERT INTO restaurant_menu (id, dish_name, price, restaurant_id, create_date)
-VALUES (1, 'Чебурек с мясом', 130, 1, '2020-04-04'),
-       (2, 'Чебурек с вишней', 105, 1, '2020-04-05'),
-       (3, 'Компот', 40, 1, '2020-04-04'),
-       (4, 'Чай', 40, 1, '2020-04-05'),
-       (5, 'Пельмени', 110, 2, '2020-04-04'),
-       (6, 'Вареники с картошкой', 110, 2, '2020-04-05'),
-       (7, 'Кофе', 90, 2, '2020-04-05'),
-       (8, 'Блюдо дня', 100, 1, now());
+VALUES (1, 'Burger', 35, 1, '2020-04-04'),
+       (2, 'Cheese Burger', 40, 1, '2020-04-05'),
+       (3, 'Cola', 8, 1, '2020-04-04'),
+       (4, 'Tea', 7, 1, '2020-04-05'),
+       (5, 'Margarita', 25, 2, '2020-04-04'),
+       (6, 'Chicago pizza', 35, 2, '2020-04-05'),
+       (7, 'Coffee', 8, 2, '2020-04-05'),
+       (8, 'Dish of the day', 30, 1, now());
 
 INSERT INTO user_vote (id, user_id, restaurant_id, vote_date_time)
 VALUES (1, 1, 1, '2020-04-04 10:00:00'),
