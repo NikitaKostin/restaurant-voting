@@ -23,14 +23,6 @@ public class RestaurantServiceTest {
     @Autowired
     RestaurantService restaurantService;
 
-    @Autowired
-    private CacheManager cacheManager;
-
-    @Before
-    public void setup() {
-        cacheManager.getCache("restaurant").clear();
-    }
-
     @Test
     public void get() {
         Restaurant restaurant = restaurantService.get(RESTAURANT_1_ID);

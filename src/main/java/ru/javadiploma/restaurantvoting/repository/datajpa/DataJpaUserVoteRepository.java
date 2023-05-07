@@ -1,10 +1,13 @@
 package ru.javadiploma.restaurantvoting.repository.datajpa;
 
 import org.springframework.stereotype.Repository;
+import ru.javadiploma.restaurantvoting.model.Restaurant;
+import ru.javadiploma.restaurantvoting.model.User;
 import ru.javadiploma.restaurantvoting.model.UserVote;
 import ru.javadiploma.restaurantvoting.repository.UserVoteRepository;
 
 import java.time.LocalTime;
+import java.util.Objects;
 
 @Repository
 public class DataJpaUserVoteRepository implements UserVoteRepository {
@@ -30,7 +33,11 @@ public class DataJpaUserVoteRepository implements UserVoteRepository {
 
     @Override
     public UserVote get(int id, int userId, int restaurantId) {
-        return crudUserVoteRepository.findByIdAndUserIdAndRestaurantId(id, userId, restaurantId).orElse(null);
+        return crudUserVoteRepository.findById(id)
+                .filter(userVote -> Objects.equals(userVote.getUser().getId(), userId) &&
+                        Objects.equals(userVote.getRestaurant().getId(), restaurantId)
+                )
+                .orElse(null);
     }
 
     @Override

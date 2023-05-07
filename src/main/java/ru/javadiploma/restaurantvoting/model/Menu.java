@@ -12,20 +12,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "restaurant_menu",  uniqueConstraints = {@UniqueConstraint(columnNames = {"dish_name", "price", "restaurant_id", "create_date"}, name = "restaurant_menu_unique_dish_name_price_restaurant_create_date_idx")})
-public class RestaurantMenu extends AbstractBaseEntity {
-    @NotBlank
-    @Size(min = 2, max = 128)
-    @Column(name = "dish_name", nullable = false)
-    protected String dishName;
-
-    @Column(name = "price", nullable = false)
-    @Range(min = 10, max = 10000)
-    private int price;
+@Table(name = "menu",  uniqueConstraints = {@UniqueConstraint(columnNames = {"dish_id", "restaurant_id", "create_date"}, name = "menu_unique_dish_restaurant_create_date_idx")})
+public class Menu extends AbstractBaseEntity {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dish_id")
+    @NotNull
+    protected Dish dish;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Restaurant restaurant;
 
@@ -33,20 +28,12 @@ public class RestaurantMenu extends AbstractBaseEntity {
     @NotNull
     private LocalDate createDate;
 
-    public String getDishName() {
-        return dishName;
+    public Dish getDish() {
+        return dish;
     }
 
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 
     public Restaurant getRestaurant() {
@@ -65,22 +52,18 @@ public class RestaurantMenu extends AbstractBaseEntity {
         this.createDate = createDate;
     }
 
-    public RestaurantMenu() {
+    public Menu() {
     }
 
-    public RestaurantMenu(Integer id, String dishName, int price, LocalDate createDate) {
+    public Menu(Integer id, LocalDate createDate) {
         super(id);
-        this.dishName = dishName;
-        this.price = price;
         this.createDate = createDate;
     }
 
     @Override
     public String toString() {
-        return "RestaurantMenu{" +
+        return "Menu{" +
                 "id=" + id +
-                ", dishName='" + dishName + '\'' +
-                ", price=" + price +
                 ", createDate=" + createDate +
                 '}';
     }

@@ -1,7 +1,8 @@
 DELETE FROM user_vote;
 DELETE FROM user_role;
 DELETE FROM users;
-DELETE FROM restaurant_menu;
+DELETE FROM menu;
+DELETE FROM dish;
 DELETE FROM restaurant;
 
 INSERT INTO users (id, name, email, password)
@@ -18,15 +19,27 @@ INSERT INTO restaurant (id, name)
 VALUES (1, 'Burger cafe'),
        (2, 'Pizza cafe');
 
-INSERT INTO restaurant_menu (id, dish_name, price, restaurant_id, create_date)
-VALUES (1, 'Burger', 35, 1, '2020-04-04'),
-       (2, 'Cheese Burger', 40, 1, '2020-04-05'),
-       (3, 'Cola', 8, 1, '2020-04-04'),
-       (4, 'Tea', 7, 1, '2020-04-05'),
-       (5, 'Margarita', 25, 2, '2020-04-04'),
-       (6, 'Chicago pizza', 35, 2, '2020-04-05'),
-       (7, 'Coffee', 8, 2, '2020-04-05'),
-       (8, 'Dish of the day', 30, 1, now());
+INSERT INTO dish (id, name, price)
+VALUES (1, 'Burger', 35),
+       (2, 'Cheese Burger', 40),
+       (3, 'Cola', 8),
+       (4, 'Tea', 7),
+       (5, 'Margarita', 25),
+       (6, 'Chicago pizza', 35),
+       (7, 'Coffee', 8),
+       (8, 'Dish of the day', 30),
+       (9, 'Drink of the day', 5);
+
+
+INSERT INTO menu (id, dish_id, restaurant_id, create_date)
+VALUES (1, 1, 1, '2020-04-04'),
+       (2, 2, 1, '2020-04-05'),
+       (3, 3, 1, '2020-04-04'),
+       (4, 4, 1, '2020-04-05'),
+       (5, 5, 2, '2020-04-04'),
+       (6, 6, 2, '2020-04-05'),
+       (7, 7, 2, '2020-04-05'),
+       (8, 8, 1, now());
 
 INSERT INTO user_vote (id, user_id, restaurant_id, vote_date_time)
 VALUES (1, 1, 1, '2020-04-04 10:00:00'),

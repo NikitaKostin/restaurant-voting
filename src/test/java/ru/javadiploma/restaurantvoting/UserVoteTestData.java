@@ -1,6 +1,5 @@
 package ru.javadiploma.restaurantvoting;
 
-import ru.javadiploma.restaurantvoting.model.Restaurant;
 import ru.javadiploma.restaurantvoting.model.UserVote;
 
 import java.time.LocalDateTime;
@@ -18,6 +17,6 @@ public class UserVoteTestData {
     }
 
     public static UserVote getNewAfter11() {
-        return new UserVote(null, LocalDateTime.of(2023, 1, 1, 23, 00));
+        return new UserVote(null, LocalDateTime.of(2023, 1, 1, 23, 0));
     }
 }
