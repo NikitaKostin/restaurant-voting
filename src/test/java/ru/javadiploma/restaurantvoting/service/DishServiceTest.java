@@ -42,4 +42,11 @@ public class DishServiceTest {
         DISH_MATCHER.assertMatch(created, newDish);
         DISH_MATCHER.assertMatch(dishService.get(newId), newDish);
     }
+
+    @Test
+    public void update() {
+        Dish updated = getUpdated();
+        dishService.update(updated);
+        DISH_MATCHER.assertMatch(dishService.get(DISH_1_ID), getUpdated());
+    }
 }

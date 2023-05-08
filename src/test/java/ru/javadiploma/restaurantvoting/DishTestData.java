@@ -32,4 +32,8 @@ public class DishTestData {
     public static Dish getNew() {
         return new Dish(null, "New cold drink", 7);
     }
+
+    public static Dish getUpdated() {
+        return new Dish(DISH_1_ID, "New burger", 35);
+    }
 }

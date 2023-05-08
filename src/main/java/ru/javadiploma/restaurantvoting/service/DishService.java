@@ -29,4 +29,9 @@ public class DishService {
         Assert.notNull(dish, "dish must not be null");
         return dishRepository.save(dish);
     }
+
+    public void update(Dish dish) {
+        Assert.notNull(dish, "restaurant must not be null");
+        checkNotFoundWithId(dishRepository.save(dish), dish.id());
+    }
 }
