@@ -13,7 +13,4 @@ import java.util.Optional;
 public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
     @Query("SELECT rm FROM Menu rm WHERE rm.restaurant.id=:restaurantId")
     List<Menu> getAll(@Param("restaurantId") int restaurantId);
-
-    @Query("SELECT rm FROM Menu rm JOIN FETCH rm.restaurant WHERE rm.id= ?1 AND rm.restaurant.id= ?2")
-    Optional<Menu> getWithRestaurant(int id, int restaurantId);
 }

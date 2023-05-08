@@ -23,14 +23,16 @@ public class MenuService {
         return checkNotFoundWithId(menuRepository.get(id, restaurantId), id);
     }
 
-    public Menu getWithRestaurant(int id, int userId) {
-        return checkNotFoundWithId(menuRepository.getWithRestaurant(id, userId), id);
-    }
-
     @CacheEvict(value = "menu", allEntries = true)
     public Menu create(Menu menu, int dishId, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");
         return menuRepository.save(menu, dishId, restaurantId);
+    }
+
+    @CacheEvict(value = "menu", allEntries = true)
+    public void update(Menu menu, int dishId, int restaurantId) {
+        Assert.notNull(menu, "menu must not be null");
+        checkNotFoundWithId(menuRepository.save(menu, dishId, restaurantId), menu.id());
     }
 
     @Cacheable("menu")

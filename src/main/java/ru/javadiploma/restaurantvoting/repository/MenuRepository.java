@@ -12,8 +12,4 @@ public interface MenuRepository {
     Menu get(int id, int restaurantId);
 
     List<Menu> getAll(int restaurantId);
-
-    default Menu getWithRestaurant(int id, int restaurantId) {
-        throw new UnsupportedOperationException();
-    }
 }
