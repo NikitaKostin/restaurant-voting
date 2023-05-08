@@ -23,6 +23,10 @@ public class RestaurantService {
         return checkNotFoundWithId(restaurantRepository.get(id), id);
     }
 
+    public Restaurant getWithMenu(int id) {
+        return checkNotFoundWithId(restaurantRepository.getWithMenu(id), id);
+    }
+
     @Cacheable("restaurant")
     public List<Restaurant> getAll() {
         return restaurantRepository.getAll();

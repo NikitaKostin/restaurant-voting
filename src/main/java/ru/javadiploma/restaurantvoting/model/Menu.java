@@ -1,15 +1,10 @@
 package ru.javadiploma.restaurantvoting.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.validator.constraints.Range;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "menu",  uniqueConstraints = {@UniqueConstraint(columnNames = {"dish_id", "restaurant_id", "create_date"}, name = "menu_unique_dish_restaurant_create_date_idx")})
@@ -21,6 +16,7 @@ public class Menu extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @JsonBackReference
     @NotNull
     private Restaurant restaurant;
 

@@ -1,10 +1,8 @@
 package ru.javadiploma.restaurantvoting.service;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -28,6 +26,13 @@ public class RestaurantServiceTest {
         Restaurant restaurant = restaurantService.get(RESTAURANT_1_ID);
         RESTAURANT_MATCHER.assertMatch(restaurant, restaurant1);
     }
+
+    @Test
+    public void getWithRestaurant() {
+        Restaurant restaurant = restaurantService.getWithMenu(RESTAURANT_1_ID);
+        RESTAURANT_WITH_MENUS_MATCHER.assertMatch(restaurant, restaurant1);
+    }
+
 
     @Test
     public void update() {
