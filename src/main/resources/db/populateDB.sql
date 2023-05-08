@@ -12,8 +12,9 @@ VALUES (1, 'User', 'user@yandex.ru', 'password'),
 
 INSERT INTO user_role (role, user_id)
 VALUES ('USER', 1),
-       ('USER', 2),
-       ('ADMIN', 2);
+       ('ADMIN', 2),
+       ('USER', 3);
+
 
 INSERT INTO restaurant (id, name)
 VALUES (1, 'Burger cafe'),
