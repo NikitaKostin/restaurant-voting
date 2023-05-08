@@ -21,16 +21,15 @@ VALUES (1, 'Burger cafe'),
        (2, 'Pizza cafe');
 
 INSERT INTO dish (id, name, price)
-VALUES (1, 'Burger', 35),
-       (2, 'Cheese Burger', 40),
-       (3, 'Cola', 8),
-       (4, 'Tea', 7),
-       (5, 'Margarita', 25),
-       (6, 'Chicago pizza', 35),
-       (7, 'Coffee', 8),
-       (8, 'Dish of the day', 30),
-       (9, 'Drink of the day', 5);
-
+VALUES (1, 'Burger', 350),
+       (2, 'Cheese Burger', 400),
+       (3, 'Cola', 80),
+       (4, 'Tea', 70),
+       (5, 'Margarita', 250),
+       (6, 'Chicago pizza', 350),
+       (7, 'Coffee', 80),
+       (8, 'Dish of the day', 300),
+       (9, 'Drink of the day', 50);
 
 INSERT INTO menu (id, dish_id, restaurant_id, create_date)
 VALUES (1, 1, 1, '2020-04-04'),

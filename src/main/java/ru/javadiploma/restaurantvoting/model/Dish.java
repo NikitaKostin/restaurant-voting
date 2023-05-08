@@ -11,7 +11,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "dish",  uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "price"}, name = "dish_unique_name_price_idx")})
 public class Dish extends AbstractNamedEntity {
     @Column(name = "price", nullable = false)
-    @Range(min = 1, max = 10000)
+    @Range(min = 10, max = 1000000)
     private int price;
 
     public int getPrice() {
