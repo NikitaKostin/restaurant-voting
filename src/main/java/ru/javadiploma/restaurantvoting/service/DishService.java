@@ -1,12 +1,15 @@
 package ru.javadiploma.restaurantvoting.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javadiploma.restaurantvoting.model.Dish;
 import ru.javadiploma.restaurantvoting.repository.DishRepository;
+import ru.javadiploma.restaurantvoting.to.DishTo;
+import ru.javadiploma.restaurantvoting.util.DishUtil;
 
 import java.util.List;
 
+import static ru.javadiploma.restaurantvoting.util.ValidationUtil.assureIdConsistent;
 import static ru.javadiploma.restaurantvoting.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -18,20 +21,22 @@ public class DishService {
     }
 
     public Dish get(int id) {
-        return checkNotFoundWithId(dishRepository.get(id), id);
+        return checkNotFoundWithId(dishRepository.findById(id).orElse(null), id);
     }
 
     public List<Dish> getAll() {
-        return dishRepository.getAll();
+        return dishRepository.findAll();
     }
 
-    public Dish create(Dish dish) {
-        Assert.notNull(dish, "dish must not be null");
-        return dishRepository.save(dish);
+    public Dish create(DishTo dishTo) {
+        return dishRepository.save(DishUtil.createNewFromTo(dishTo));
     }
 
-    public void update(Dish dish) {
-        Assert.notNull(dish, "restaurant must not be null");
-        checkNotFoundWithId(dishRepository.save(dish), dish.id());
+    @Transactional
+    public void update(DishTo dishTo, int id) {
+        assureIdConsistent(dishTo, id);
+        Dish dish = get(dishTo.id());
+        DishUtil.updateFromTo(dish, dishTo);
+        dishRepository.save(dish);
     }
 }

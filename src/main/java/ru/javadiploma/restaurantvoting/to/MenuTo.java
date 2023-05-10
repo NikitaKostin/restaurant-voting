@@ -9,6 +9,22 @@ public class MenuTo extends BaseTo {
     @NotNull
     private int restaurantId;
 
+    public int getDishId() {
+        return dishId;
+    }
+
+    public void setDishId(int dishId) {
+        this.dishId = dishId;
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
     public MenuTo() {
     }
 

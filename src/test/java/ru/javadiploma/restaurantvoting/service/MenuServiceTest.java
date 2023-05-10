@@ -8,10 +8,12 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.javadiploma.restaurantvoting.model.Menu;
+import ru.javadiploma.restaurantvoting.to.MenuTo;
 
 import static ru.javadiploma.restaurantvoting.DishTestData.DISH_9_ID;
 import static ru.javadiploma.restaurantvoting.MenuTestData.*;
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_1_ID;
+import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_2_ID;
 import static ru.javadiploma.restaurantvoting.UserTestData.ADMIN_ID;
 
 @ContextConfiguration({
@@ -33,12 +35,12 @@ public class MenuServiceTest {
 
     @Test
     public void create() {
-        Menu created = menuService.create(getNew(), DISH_9_ID, ADMIN_ID);
+        Menu created = menuService.create(new MenuTo(null, DISH_9_ID, RESTAURANT_2_ID));
         int newId = created.id();
         Menu newMenu = getNew();
         newMenu.setId(newId);
         MENU_MATCHER.assertMatch(created, newMenu);
-        MENU_MATCHER.assertMatch(menuService.get(newId, ADMIN_ID), newMenu);
+        MENU_MATCHER.assertMatch(menuService.get(newId, RESTAURANT_2_ID), newMenu);
     }
 
     @Test

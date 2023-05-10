@@ -1,15 +1,16 @@
 package ru.javadiploma.restaurantvoting.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javadiploma.restaurantvoting.model.Menu;
 
 import java.util.List;
 
-public interface MenuRepository {
-    // null if updated restaurant menu does not belong to restaurantId
-    Menu save(Menu menu, int dishId, int restaurantId);
-
-    // null if restaurant menu does not belong to restaurantId
-    Menu get(int id, int restaurantId);
-
-    List<Menu> getAll(int restaurantId);
+@Repository
+public interface MenuRepository extends JpaRepository<Menu, Integer> {
+    @Query("SELECT rm FROM Menu rm WHERE rm.restaurant.id=:restaurantId")
+    List<Menu> getAll(@Param("restaurantId") int restaurantId);
 }

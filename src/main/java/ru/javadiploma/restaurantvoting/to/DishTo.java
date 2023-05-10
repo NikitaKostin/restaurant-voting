@@ -6,20 +6,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class DishTo extends BaseTo {
-    @Range(min = 10, max = 1000000)
-    private int price;
-
     @NotBlank
     @Size(min = 2, max = 100)
     private String name;
 
-    public DishTo() {
-    }
+    @Range(min = 10, max = 1000000)
+    private int price;
 
-    public DishTo(Integer id, int price, String name) {
+    public DishTo(Integer id, String name, int price) {
         super(id);
-        this.price = price;
         this.name = name;
+        this.price = price;
     }
 
     public int getPrice() {

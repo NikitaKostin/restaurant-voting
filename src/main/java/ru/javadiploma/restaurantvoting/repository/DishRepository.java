@@ -1,16 +1,10 @@
 package ru.javadiploma.restaurantvoting.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javadiploma.restaurantvoting.model.Dish;
 
-import java.util.List;
-
-public interface DishRepository {
-    // null if not found, when updated
-    Dish save(Dish dish);
-
-    // null if not found
-    Dish get(int id);
-
-    // null if not found
-    List<Dish> getAll();
+@Repository
+public interface DishRepository extends JpaRepository<Dish, Integer> {
 }

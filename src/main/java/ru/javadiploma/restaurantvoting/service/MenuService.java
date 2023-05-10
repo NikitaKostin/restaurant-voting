@@ -3,36 +3,57 @@ package ru.javadiploma.restaurantvoting.service;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javadiploma.restaurantvoting.model.Menu;
+import ru.javadiploma.restaurantvoting.repository.DishRepository;
 import ru.javadiploma.restaurantvoting.repository.MenuRepository;
+import ru.javadiploma.restaurantvoting.repository.RestaurantRepository;
+import ru.javadiploma.restaurantvoting.to.MenuTo;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
+import static ru.javadiploma.restaurantvoting.util.ValidationUtil.assureIdConsistent;
 import static ru.javadiploma.restaurantvoting.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class MenuService {
     private final MenuRepository menuRepository;
+    private final DishRepository dishRepository;
+    private final RestaurantRepository restaurantRepository;
 
-    public MenuService(MenuRepository menuRepository) {
+    public MenuService(MenuRepository menuRepository, DishRepository dishRepository, RestaurantRepository restaurantRepository) {
         this.menuRepository = menuRepository;
+        this.dishRepository = dishRepository;
+        this.restaurantRepository = restaurantRepository;
     }
 
     public Menu get(int id, int restaurantId) {
-        return checkNotFoundWithId(menuRepository.get(id, restaurantId), id);
+        return checkNotFoundWithId(menuRepository.findById(id)
+                .filter(menu -> Objects.equals(menu.getRestaurant().getId(), restaurantId))
+                .orElse(null), id);
     }
 
     @CacheEvict(value = "menu", allEntries = true)
-    public Menu create(Menu menu, int dishId, int restaurantId) {
-        Assert.notNull(menu, "menu must not be null");
-        return menuRepository.save(menu, dishId, restaurantId);
+    @Transactional
+    public Menu create(MenuTo menuTo) {
+        Menu menu = new Menu(
+                null,
+                dishRepository.getReferenceById(menuTo.getDishId()),
+                restaurantRepository.getReferenceById(menuTo.getRestaurantId()),
+                LocalDate.now()
+        );
+        return menuRepository.save(menu);
     }
 
     @CacheEvict(value = "menu", allEntries = true)
-    public void update(Menu menu, int dishId, int restaurantId) {
-        Assert.notNull(menu, "menu must not be null");
-        checkNotFoundWithId(menuRepository.save(menu, dishId, restaurantId), menu.id());
+    @Transactional
+    public void update(MenuTo menuTo, int id) {
+        assureIdConsistent(menuTo, id);
+        Menu menu = get(menuTo.id(), menuTo.getRestaurantId());
+        menu.setDish(dishRepository.getReferenceById(menuTo.getDishId()));
     }
 
     @Cacheable("menu")

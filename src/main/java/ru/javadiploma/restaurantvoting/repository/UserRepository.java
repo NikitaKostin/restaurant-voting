@@ -1,16 +1,12 @@
 package ru.javadiploma.restaurantvoting.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javadiploma.restaurantvoting.model.User;
 
 import java.util.List;
 
-public interface UserRepository {
-    // null if not found, when updated
-    User save(User user);
-
-    // null if not found
-    User get(int id);
-
-    // null if not found
-    User getByEmail(String email);
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer> {
 }

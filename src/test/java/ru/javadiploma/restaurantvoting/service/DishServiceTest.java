@@ -8,6 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.javadiploma.restaurantvoting.model.Dish;
+import ru.javadiploma.restaurantvoting.to.DishTo;
 
 import static ru.javadiploma.restaurantvoting.DishTestData.*;
 
@@ -35,7 +36,7 @@ public class DishServiceTest {
 
     @Test
     public void create() {
-        Dish created = dishService.create(getNew());
+        Dish created = dishService.create(new DishTo(null, "New cold drink", 70));
         int newId = created.id();
         Dish newDish = getNew();
         newDish.setId(newId);
@@ -45,8 +46,8 @@ public class DishServiceTest {
 
     @Test
     public void update() {
-        Dish updated = getUpdated();
-        dishService.update(updated);
+        DishTo updated = new DishTo(null, "New burger", 350);
+        dishService.update(updated, DISH_1_ID);
         DISH_MATCHER.assertMatch(dishService.get(DISH_1_ID), getUpdated());
     }
 }

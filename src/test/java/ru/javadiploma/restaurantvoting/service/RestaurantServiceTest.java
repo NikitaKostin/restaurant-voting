@@ -8,6 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.javadiploma.restaurantvoting.model.Restaurant;
+import ru.javadiploma.restaurantvoting.to.RestaurantTo;
 
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.*;
 
@@ -28,7 +29,7 @@ public class RestaurantServiceTest {
     }
 
     @Test
-    public void getWithRestaurant() {
+    public void getWithMenu() {
         Restaurant restaurant = restaurantService.getWithMenu(RESTAURANT_1_ID);
         RESTAURANT_WITH_MENUS_MATCHER.assertMatch(restaurant, restaurant1);
     }
@@ -36,14 +37,13 @@ public class RestaurantServiceTest {
 
     @Test
     public void update() {
-        Restaurant updated = getUpdated();
-        restaurantService.update(updated);
+        restaurantService.update(new RestaurantTo(null, "New burger cafe"), RESTAURANT_1_ID);
         RESTAURANT_MATCHER.assertMatch(restaurantService.get(RESTAURANT_1_ID), getUpdated());
     }
 
     @Test
     public void create() {
-        Restaurant created = restaurantService.create(getNew());
+        Restaurant created = restaurantService.create(new RestaurantTo(null, "New cafe"));
         int newId = created.id();
         Restaurant newRestaurant = getNew();
         newRestaurant.setId(newId);

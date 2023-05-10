@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static ru.javadiploma.restaurantvoting.MenuTestData.firstRestaurantCurrentMenus;
 
 public class RestaurantTestData {
-    public static final MatcherFactory.Matcher<Restaurant> RESTAURANT_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class);
+    public static final MatcherFactory.Matcher<Restaurant> RESTAURANT_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "menus");
     public static MatcherFactory.Matcher<Restaurant> RESTAURANT_WITH_MENUS_MATCHER =
             MatcherFactory.usingAssertions(Restaurant.class,
             //     No need use ignoringAllOverriddenEquals, see https://assertj.github.io/doc/#breaking-changes
