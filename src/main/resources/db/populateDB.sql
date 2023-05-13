@@ -29,7 +29,8 @@ VALUES (1, 'Burger', 350),
        (6, 'Chicago pizza', 350),
        (7, 'Coffee', 80),
        (8, 'Dish of the day', 300),
-       (9, 'Drink of the day', 50);
+       (9, 'Drink of the day', 50),
+       (10, 'New ice coffee', 50);
 
 INSERT INTO menu (id, dish_id, restaurant_id, create_date)
 VALUES (1, 1, 1, '2020-04-04'),

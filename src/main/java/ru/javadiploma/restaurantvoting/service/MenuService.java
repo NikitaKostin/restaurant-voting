@@ -38,11 +38,11 @@ public class MenuService {
 
     @CacheEvict(value = "menu", allEntries = true)
     @Transactional
-    public Menu create(MenuTo menuTo) {
+    public Menu create(MenuTo menuTo, int restaurantId) {
         Menu menu = new Menu(
                 null,
                 dishRepository.getReferenceById(menuTo.getDishId()),
-                restaurantRepository.getReferenceById(menuTo.getRestaurantId()),
+                restaurantRepository.getReferenceById(restaurantId),
                 LocalDate.now()
         );
         return menuRepository.save(menu);
@@ -50,9 +50,9 @@ public class MenuService {
 
     @CacheEvict(value = "menu", allEntries = true)
     @Transactional
-    public void update(MenuTo menuTo, int id) {
+    public void update(MenuTo menuTo, int id, int restaurantId) {
         assureIdConsistent(menuTo, id);
-        Menu menu = get(menuTo.id(), menuTo.getRestaurantId());
+        Menu menu = get(menuTo.id(), restaurantId);
         menu.setDish(dishRepository.getReferenceById(menuTo.getDishId()));
     }
 

@@ -16,6 +16,7 @@ public class DishTestData {
     public static final int DISH_7_ID = 7;
     public static final int DISH_8_ID = 8;
     public static final int DISH_9_ID = 9;
+    public static final int DISH_10_ID = 10;
 
     public static final Dish dish1 = new Dish(DISH_1_ID, "Burger", 350);
     public static final Dish dish2 = new Dish(DISH_2_ID, "Cheese Burger", 400);
@@ -26,8 +27,9 @@ public class DishTestData {
     public static final Dish dish7 = new Dish(DISH_7_ID, "Coffee", 80);
     public static final Dish dish8 = new Dish(DISH_8_ID, "Dish of the day", 300);
     public static final Dish dish9 = new Dish(DISH_9_ID, "Drink of the day", 50);
+    public static final Dish dish10 = new Dish(DISH_10_ID, "New ice coffee", 50);
 
-    public static final List<Dish> dishes = List.of(dish1, dish2, dish3, dish4, dish5, dish6, dish7, dish8, dish9);
+    public static final List<Dish> dishes = List.of(dish1, dish2, dish3, dish4, dish5, dish6, dish7, dish8, dish9, dish10);
 
     public static Dish getNew() {
         return new Dish(null, "New cold drink", 70);

@@ -8,9 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "restaurant",  uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}, name = "restaurant_unique_name_idx")})
 public class Restaurant extends AbstractNamedEntity {
-    public Restaurant() {
-    }
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("id")
     @JsonManagedReference
@@ -22,6 +19,13 @@ public class Restaurant extends AbstractNamedEntity {
 
     public void setMenus(List<Menu> menus) {
         this.menus = menus;
+    }
+
+    public Restaurant() {
+    }
+
+    public Restaurant(Restaurant r) {
+        this(r.id, r.name);
     }
 
     public Restaurant(Integer id, String name) {

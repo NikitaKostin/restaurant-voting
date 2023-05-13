@@ -14,7 +14,6 @@ import static ru.javadiploma.restaurantvoting.DishTestData.DISH_9_ID;
 import static ru.javadiploma.restaurantvoting.MenuTestData.*;
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_1_ID;
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_2_ID;
-import static ru.javadiploma.restaurantvoting.UserTestData.ADMIN_ID;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -35,7 +34,7 @@ public class MenuServiceTest {
 
     @Test
     public void create() {
-        Menu created = menuService.create(new MenuTo(null, DISH_9_ID, RESTAURANT_2_ID));
+        Menu created = menuService.create(new MenuTo(null, DISH_9_ID), RESTAURANT_2_ID);
         int newId = created.id();
         Menu newMenu = getNew();
         newMenu.setId(newId);

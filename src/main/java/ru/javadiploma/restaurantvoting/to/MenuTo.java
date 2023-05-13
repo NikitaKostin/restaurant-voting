@@ -6,9 +6,6 @@ public class MenuTo extends BaseTo {
     @NotNull
     protected int dishId;
 
-    @NotNull
-    private int restaurantId;
-
     public int getDishId() {
         return dishId;
     }
@@ -17,21 +14,13 @@ public class MenuTo extends BaseTo {
         this.dishId = dishId;
     }
 
-    public int getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(int restaurantId) {
-        this.restaurantId = restaurantId;
-    }
 
     public MenuTo() {
     }
 
-    public MenuTo(Integer id, int dishId, int restaurantId) {
+    public MenuTo(Integer id, int dishId) {
         super(id);
         this.dishId = dishId;
-        this.restaurantId = restaurantId;
     }
 
     @Override
@@ -39,7 +28,6 @@ public class MenuTo extends BaseTo {
         return "MenuTo{" +
                 "id=" + id +
                 ", dishId=" + dishId +
-                ", restaurantId=" + restaurantId +
                 '}';
     }
 }

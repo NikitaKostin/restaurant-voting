@@ -10,12 +10,15 @@ import static ru.javadiploma.restaurantvoting.DishTestData.dish8;
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.restaurant2;
 
 public class MenuTestData {
-    public static final MatcherFactory.Matcher<Menu> MENU_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Menu.class, "dish", "restaurant");
+    public static final MatcherFactory.Matcher<Menu> MENU_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Menu.class, "dish", "restaurant", "createDate");
 
     public static final int MENU_1_ID = 1;
     public static final int MENU_2_ID = 2;
     public static final int MENU_3_ID = 3;
     public static final int MENU_4_ID = 4;
+    public static final int MENU_5_ID = 4;
+    public static final int MENU_6_ID = 4;
+    public static final int MENU_7_ID = 4;
     public static final int MENU_8_ID = 8;
     public static final int MENU_9_ID = 9;
 

@@ -13,6 +13,9 @@ public class DishTo extends BaseTo {
     @Range(min = 10, max = 1000000)
     private int price;
 
+    public DishTo() {
+    }
+
     public DishTo(Integer id, String name, int price) {
         super(id);
         this.name = name;
