@@ -37,6 +37,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public Restaurant createRestaurant(@RequestBody RestaurantTo restaurantTo) {
         return super.createRestaurant(restaurantTo);
     }
@@ -51,6 +52,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
     }
 
     @PostMapping("/{id}/menus")
+    @ResponseStatus(HttpStatus.CREATED)
     public Menu createMenu(@RequestBody MenuTo menuTo, @PathVariable int id) {
         return super.createMenu(menuTo, id);
     }

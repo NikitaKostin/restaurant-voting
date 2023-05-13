@@ -39,6 +39,7 @@ public class DishRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public Dish create(@RequestBody DishTo dishTo) {
         checkNew(dishTo);
         return dishService.create(dishTo);

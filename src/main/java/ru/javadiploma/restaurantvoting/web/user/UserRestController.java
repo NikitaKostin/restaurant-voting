@@ -2,6 +2,7 @@ package ru.javadiploma.restaurantvoting.web.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.javadiploma.restaurantvoting.model.UserVote;
@@ -23,6 +24,7 @@ public class UserRestController {
     }
 
     @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
     public UserVote vote(@RequestBody UserVoteTo userVoteTo) {
         return userVoteService.vote(userVoteTo, SecurityUtil.authUserId());
     }

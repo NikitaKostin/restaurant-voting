@@ -9,18 +9,15 @@ import ru.javadiploma.restaurantvoting.AbstractControllerTest;
 import ru.javadiploma.restaurantvoting.model.UserVote;
 import ru.javadiploma.restaurantvoting.repository.RestaurantRepository;
 import ru.javadiploma.restaurantvoting.repository.UserRepository;
-import ru.javadiploma.restaurantvoting.repository.UserVoteRepository;
 import ru.javadiploma.restaurantvoting.service.UserVoteService;
 import ru.javadiploma.restaurantvoting.to.UserVoteTo;
 import ru.javadiploma.restaurantvoting.util.SecurityUtil;
 import ru.javadiploma.restaurantvoting.web.json.JsonUtil;
 
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_1_ID;
-import static ru.javadiploma.restaurantvoting.UserTestData.USER_ID;
 import static ru.javadiploma.restaurantvoting.UserVoteTestData.*;
 import static ru.javadiploma.restaurantvoting.web.user.UserRestController.REST_URL;
 
@@ -46,7 +43,7 @@ public class UserRestControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newTo)))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
         UserVote created = USER_VOTE_MATCHER.readFromJson(action);
         int newId = created.id();
         newUserVote.setId(newId);

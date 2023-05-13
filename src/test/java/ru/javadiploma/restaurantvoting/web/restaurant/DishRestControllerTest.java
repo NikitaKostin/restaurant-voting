@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.javadiploma.restaurantvoting.AbstractControllerTest;
-import ru.javadiploma.restaurantvoting.DishTestData;
 import ru.javadiploma.restaurantvoting.model.Dish;
 import ru.javadiploma.restaurantvoting.service.DishService;
 import ru.javadiploma.restaurantvoting.to.DishTo;
@@ -50,7 +49,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newTo)))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
         Dish created = DISH_MATCHER.readFromJson(action);
         int newId = created.id();
         newDish.setId(newId);
