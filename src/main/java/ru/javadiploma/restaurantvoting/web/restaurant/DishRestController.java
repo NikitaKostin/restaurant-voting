@@ -8,6 +8,7 @@ import ru.javadiploma.restaurantvoting.model.Dish;
 import ru.javadiploma.restaurantvoting.service.DishService;
 import ru.javadiploma.restaurantvoting.to.DishTo;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static ru.javadiploma.restaurantvoting.util.ValidationUtil.assureIdConsistent;
@@ -33,14 +34,14 @@ public class DishRestController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody DishTo dishTo, @PathVariable int id) {
+    public void update(@Valid @RequestBody DishTo dishTo, @PathVariable int id) {
         assureIdConsistent(dishTo, id);
         dishService.update(dishTo, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Dish create(@RequestBody DishTo dishTo) {
+    public Dish create(@Valid @RequestBody DishTo dishTo) {
         checkNew(dishTo);
         return dishService.create(dishTo);
     }

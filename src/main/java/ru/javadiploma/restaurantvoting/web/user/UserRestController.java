@@ -10,6 +10,8 @@ import ru.javadiploma.restaurantvoting.service.UserVoteService;
 import ru.javadiploma.restaurantvoting.to.UserVoteTo;
 import ru.javadiploma.restaurantvoting.util.SecurityUtil;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = UserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserRestController {
@@ -25,7 +27,7 @@ public class UserRestController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public UserVote vote(@RequestBody UserVoteTo userVoteTo) {
+    public UserVote vote(@Valid @RequestBody UserVoteTo userVoteTo) {
         return userVoteService.vote(userVoteTo, SecurityUtil.authUserId());
     }
 }

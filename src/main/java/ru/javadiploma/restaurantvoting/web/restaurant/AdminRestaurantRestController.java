@@ -8,6 +8,7 @@ import ru.javadiploma.restaurantvoting.model.Restaurant;
 import ru.javadiploma.restaurantvoting.to.MenuTo;
 import ru.javadiploma.restaurantvoting.to.RestaurantTo;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -53,13 +54,13 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
 
     @PostMapping("/{id}/menus")
     @ResponseStatus(HttpStatus.CREATED)
-    public Menu createMenu(@RequestBody MenuTo menuTo, @PathVariable int id) {
+    public Menu createMenu(@Valid @RequestBody MenuTo menuTo, @PathVariable int id) {
         return super.createMenu(menuTo, id);
     }
 
     @PutMapping(value = "/{id}/menus/{menuId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateMenu(@RequestBody MenuTo menuTo, @PathVariable int id,  @PathVariable int menuId) {
+    public void updateMenu(@Valid @RequestBody MenuTo menuTo, @PathVariable int id,  @PathVariable int menuId) {
         super.updateMenu(menuTo, menuId, id);
     }
 
