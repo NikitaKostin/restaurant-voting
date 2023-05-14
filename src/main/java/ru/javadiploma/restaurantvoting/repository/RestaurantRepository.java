@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
     @Query("SELECT r FROM Restaurant r JOIN FETCH r.menus m WHERE r.id= ?1 AND m.createDate = current_date")
-    Optional<Restaurant> getWithRestaurant(int id);
+    Optional<Restaurant> getWithMenu(int id);
 }
