@@ -16,7 +16,6 @@ import java.time.LocalDate;
 public class Menu extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dish_id")
-    @JsonIgnore
     @NotNull
     protected Dish dish;
 
