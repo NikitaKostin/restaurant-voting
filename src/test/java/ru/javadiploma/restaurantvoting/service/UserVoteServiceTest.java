@@ -24,7 +24,6 @@ import static ru.javadiploma.restaurantvoting.UserVoteTestData.*;
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UserVoteServiceTest {
-    // зачем поиск по id и поиск со всеми данными
     @Autowired
     UserVoteService userVoteService;
 
