@@ -1,6 +1,6 @@
 package ru.javadiploma.restaurantvoting.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,16 +15,8 @@ import java.util.List;
 public class Restaurant extends NamedEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("id")
-    @JsonManagedReference
+    @ApiModelProperty(hidden = true)
     private List<Menu> menus;
-
-    public List<Menu> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(List<Menu> menus) {
-        this.menus = menus;
-    }
 
     public Restaurant(Restaurant r) {
         this(r.id, r.name);

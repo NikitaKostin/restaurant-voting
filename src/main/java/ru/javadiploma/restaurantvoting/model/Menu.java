@@ -1,6 +1,6 @@
 package ru.javadiploma.restaurantvoting.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,12 +16,13 @@ import java.time.LocalDate;
 public class Menu extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dish_id")
+    @JsonIgnore
     @NotNull
     protected Dish dish;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
-    @JsonBackReference
+    @JsonIgnore
     @NotNull
     private Restaurant restaurant;
 
