@@ -1,11 +1,13 @@
 INSERT INTO USERS (name, email, password)
 VALUES ('User', 'user@yandex.ru', '{noop}password'),
-       ('Admin', 'admin@gmail.com', '{noop}admin');
+       ('Admin', 'admin@gmail.com', '{noop}admin'),
+       ('User 2', 'user2@yandex.ru', '{noop}password2');
 
 INSERT INTO USER_ROLES (role, user_id)
 VALUES ('USER', 1),
        ('ADMIN', 2),
-       ('USER', 2);
+       ('USER', 2),
+       ('USER', 3);
 
 INSERT INTO restaurant (id, name)
 VALUES (1, 'Burger cafe'),
