@@ -4,10 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javadiploma.restaurantvoting.model.Menu;
 import ru.javadiploma.restaurantvoting.model.Restaurant;
-import ru.javadiploma.restaurantvoting.repository.MenuRepository;
 import ru.javadiploma.restaurantvoting.repository.RestaurantRepository;
 import ru.javadiploma.restaurantvoting.service.MenuService;
-import ru.javadiploma.restaurantvoting.to.RestaurantTo;
 
 import java.util.List;
 
@@ -34,16 +32,6 @@ public abstract class AbstractRestaurantRestController {
         return restaurantRepository.findAll();
     }
 
-//    public void updateRestaurant(RestaurantTo restaurantTo, int id) {
-//        assureIdConsistent(restaurantTo, id);
-//        restaurantService.update(restaurantTo, id);
-//    }
-//
-//    public Restaurant createRestaurant(RestaurantTo restaurantTo) {
-//        checkNew(restaurantTo);
-//        return restaurantService.create(restaurantTo);
-//    }
-
     public List<Menu> getMenus(int id) {
         log.info("get menus for restaurantId {}", id);
         return menuService.getAll(id);
@@ -53,13 +41,4 @@ public abstract class AbstractRestaurantRestController {
         log.info("get menu with menuId {} for restaurantId {}", menuId, restaurantId);
         return menuService.get(menuId, restaurantId);
     }
-
-//    public Menu createMenu(MenuTo menuTo, int restaurantId) {
-//        return menuService.create(menuTo, restaurantId);
-//    }
-//
-//    public void updateMenu(MenuTo menuTo, int id, int restaurantId) {
-//        assureIdConsistent(menuTo, id);
-//        menuService.update(menuTo, id, restaurantId);
-//    }
 }
