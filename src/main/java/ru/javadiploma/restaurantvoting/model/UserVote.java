@@ -28,7 +28,7 @@ public class UserVote extends BaseEntity {
 
     @Column(name = "vote_date_time", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
     @NotNull
-    private LocalDateTime voteDateTime;
+    private LocalDateTime voteDateTime = LocalDateTime.now();
 
     public UserVote(Integer id) {
         super(id);
@@ -39,10 +39,9 @@ public class UserVote extends BaseEntity {
         this.voteDateTime = voteDateTime;
     }
 
-    public UserVote(Integer id, User user, Restaurant restaurant, LocalDateTime voteDateTime) {
+    public UserVote(Integer id, User user, Restaurant restaurant) {
         super(id);
         this.user = user;
         this.restaurant = restaurant;
-        this.voteDateTime = voteDateTime;
     }
 }
