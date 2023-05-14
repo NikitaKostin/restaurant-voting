@@ -8,8 +8,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javadiploma.restaurantvoting.model.Dish;
+import ru.javadiploma.restaurantvoting.to.DishTo;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static ru.javadiploma.restaurantvoting.DishTestData.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -21,7 +22,29 @@ class DishServiceTest {
 
     @Test
     void get() {
-        final Dish dish = dishService.get(1);
-        System.out.println(dish);
+        Dish dish = dishService.get(DISH_1_ID);
+        DISH_MATCHER.assertMatch(dish, dish1);
+    }
+
+    @Test
+    void getAll() {
+        DISH_MATCHER.assertMatch(dishService.getAll(), dishes);
+    }
+
+    @Test
+    void create() {
+        Dish created = dishService.create(new DishTo(null, "New cold drink", 70));
+        int newId = created.id();
+        Dish newDish = getNew();
+        newDish.setId(newId);
+        DISH_MATCHER.assertMatch(created, newDish);
+        DISH_MATCHER.assertMatch(dishService.get(newId), newDish);
+    }
+
+    @Test
+    void update() {
+        DishTo updated = new DishTo(null, "New burger", 350);
+        dishService.update(updated, DISH_1_ID);
+        DISH_MATCHER.assertMatch(dishService.get(DISH_1_ID), getUpdated());
     }
 }
