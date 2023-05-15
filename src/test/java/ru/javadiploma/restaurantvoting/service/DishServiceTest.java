@@ -1,41 +1,38 @@
 package ru.javadiploma.restaurantvoting.service;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javadiploma.restaurantvoting.model.Dish;
 import ru.javadiploma.restaurantvoting.to.DishTo;
 
 import static ru.javadiploma.restaurantvoting.DishTestData.*;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@RunWith(SpringRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class DishServiceTest {
-
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@Transactional
+@ActiveProfiles("test")
+class DishServiceTest {
     @Autowired
     DishService dishService;
 
     @Test
-    public void get() {
+    void get() {
         Dish dish = dishService.get(DISH_1_ID);
         DISH_MATCHER.assertMatch(dish, dish1);
     }
 
     @Test
-    public void getAll() {
+    void getAll() {
         DISH_MATCHER.assertMatch(dishService.getAll(), dishes);
     }
 
     @Test
-    public void create() {
+    void create() {
         Dish created = dishService.create(new DishTo(null, "New cold drink", 70));
         int newId = created.id();
         Dish newDish = getNew();
@@ -45,7 +42,7 @@ public class DishServiceTest {
     }
 
     @Test
-    public void update() {
+    void update() {
         DishTo updated = new DishTo(null, "New burger", 350);
         dishService.update(updated, DISH_1_ID);
         DISH_MATCHER.assertMatch(dishService.get(DISH_1_ID), getUpdated());

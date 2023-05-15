@@ -1,6 +1,7 @@
 package ru.javadiploma.restaurantvoting;
 
 import ru.javadiploma.restaurantvoting.model.UserVote;
+import ru.javadiploma.restaurantvoting.web.MatcherFactory;
 
 import java.time.LocalDateTime;
 

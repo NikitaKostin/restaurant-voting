@@ -5,44 +5,50 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.javadiploma.restaurantvoting.model.Dish;
-import ru.javadiploma.restaurantvoting.service.DishService;
+import ru.javadiploma.restaurantvoting.repository.DishRepository;
 import ru.javadiploma.restaurantvoting.to.DishTo;
+import ru.javadiploma.restaurantvoting.util.DishUtil;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+
 import java.util.List;
 
-import static ru.javadiploma.restaurantvoting.util.ValidationUtil.assureIdConsistent;
-import static ru.javadiploma.restaurantvoting.util.ValidationUtil.checkNew;
+import static ru.javadiploma.restaurantvoting.util.validation.ValidationUtil.assureIdConsistent;
+import static ru.javadiploma.restaurantvoting.util.validation.ValidationUtil.checkNew;
 
 @RestController
 @RequestMapping(value = DishRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishRestController {
-    static final String REST_URL = "/rest/admin/dish";
+    static final String REST_URL = "/api/rest/admin/dish";
 
     @Autowired
-    private DishService dishService;
+    private DishRepository dishRepository;
 
     @GetMapping("/{id}")
     public Dish get(@PathVariable int id) {
-        return dishService.get(id);
+        return dishRepository.findById(id).orElse(null);
     }
 
     @GetMapping("/")
     public List<Dish> getAll() {
-        return dishService.getAll();
+        return dishRepository.findAll();
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     public void update(@Valid @RequestBody DishTo dishTo, @PathVariable int id) {
         assureIdConsistent(dishTo, id);
-        dishService.update(dishTo, id);
+        Dish dish = get(dishTo.id());
+        DishUtil.updateFromTo(dish, dishTo);
+        dishRepository.save(dish);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Dish create(@Valid @RequestBody DishTo dishTo) {
         checkNew(dishTo);
-        return dishService.create(dishTo);
+        return dishRepository.save(DishUtil.createNewFromTo(dishTo));
     }
 }

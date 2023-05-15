@@ -1,6 +1,7 @@
 package ru.javadiploma.restaurantvoting;
 
 import ru.javadiploma.restaurantvoting.model.Restaurant;
+import ru.javadiploma.restaurantvoting.web.MatcherFactory;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class RestaurantTestData {
     public static final MatcherFactory.Matcher<Restaurant> RESTAURANT_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "menus");
     public static MatcherFactory.Matcher<Restaurant> RESTAURANT_WITH_MENUS_MATCHER =
             MatcherFactory.usingAssertions(Restaurant.class,
-            //     No need use ignoringAllOverriddenEquals, see https://assertj.github.io/doc/#breaking-changes
+                    //     No need use ignoringAllOverriddenEquals, see https://assertj.github.io/doc/#breaking-changes
                     (a, e) -> assertThat(a).usingRecursiveComparison().ignoringFields("menus.restaurant", "menus.dish").isEqualTo(e),
                     (a, e) -> {
                         throw new UnsupportedOperationException();

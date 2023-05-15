@@ -1,27 +1,24 @@
 package ru.javadiploma.restaurantvoting.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.javadiploma.restaurantvoting.model.Dish;
 import ru.javadiploma.restaurantvoting.repository.DishRepository;
 import ru.javadiploma.restaurantvoting.to.DishTo;
 import ru.javadiploma.restaurantvoting.util.DishUtil;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-import static ru.javadiploma.restaurantvoting.util.ValidationUtil.assureIdConsistent;
-import static ru.javadiploma.restaurantvoting.util.ValidationUtil.checkNotFoundWithId;
+import static ru.javadiploma.restaurantvoting.util.validation.ValidationUtil.assureIdConsistent;
 
 @Service
 public class DishService {
-    private final DishRepository dishRepository;
-
-    public DishService(DishRepository dishRepository) {
-        this.dishRepository = dishRepository;
-    }
+    @Autowired
+    protected DishRepository dishRepository;
 
     public Dish get(int id) {
-        return checkNotFoundWithId(dishRepository.findById(id).orElse(null), id);
+        return dishRepository.findById(id).orElse(null);
     }
 
     public List<Dish> getAll() {

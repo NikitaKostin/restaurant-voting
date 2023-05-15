@@ -1,5 +1,6 @@
 package ru.javadiploma.restaurantvoting.model;
 
+import lombok.*;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Column;
@@ -9,21 +10,14 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "dish",  uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "price"}, name = "dish_unique_name_price_idx")})
-public class Dish extends AbstractNamedEntity {
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
+public class Dish extends NamedEntity {
     @Column(name = "price", nullable = false)
     @Range(min = 10, max = 1000000)
     private int price;
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public Dish() {
-    }
 
     public Dish(Dish d) {
         this(d.id, d.name, d.price);
@@ -32,14 +26,5 @@ public class Dish extends AbstractNamedEntity {
     public Dish(Integer id, String name, int price) {
         super(id, name);
         this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Dish{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
     }
 }
