@@ -11,12 +11,12 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(callSuper = true, exclude = {"menus"})
 public class Restaurant extends NamedEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("id")
     @ApiModelProperty(hidden = true)
-    private List<Menu> menus;
+    @ToString.Exclude
+    private List<MenuItem> menuItems;
 
     public Restaurant(Restaurant r) {
         this(r.id, r.name);

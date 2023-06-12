@@ -13,17 +13,18 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(callSuper = true, exclude = {"user", "restaurant"})
 public class UserVote extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ToString.Exclude
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     @NotNull
+    @ToString.Exclude
     private Restaurant restaurant;
 
     @Column(name = "vote_date_time", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
