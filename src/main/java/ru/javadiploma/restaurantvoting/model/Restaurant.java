@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Restaurant extends NamedEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    @OrderBy("id")
     @ApiModelProperty(hidden = true)
     @ToString.Exclude
     private List<MenuItem> menuItems;
