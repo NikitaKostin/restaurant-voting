@@ -11,11 +11,11 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @ToString
-public class MenuTo extends BaseTo {
+public class MenuItemTo extends BaseTo {
     @NotNull
     protected int dishId;
 
-    public MenuTo(Integer id, int dishId) {
+    public MenuItemTo(Integer id, int dishId) {
         super(id);
         this.dishId = dishId;
     }

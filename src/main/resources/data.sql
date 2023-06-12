@@ -25,7 +25,7 @@ VALUES (1, 'Burger', 350),
        (9, 'Drink of the day', 50),
        (10, 'New ice coffee', 50);
 
-INSERT INTO menu (id, dish_id, restaurant_id, create_date)
+INSERT INTO menu_item (id, dish_id, restaurant_id, offer_date)
 VALUES (1, 1, 1, '2023-04-04'),
        (2, 2, 1, '2023-04-05'),
        (3, 3, 1, '2023-04-04'),

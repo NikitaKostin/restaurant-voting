@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.javadiploma.restaurantvoting.model.Menu;
+import ru.javadiploma.restaurantvoting.model.MenuItem;
 import ru.javadiploma.restaurantvoting.model.Restaurant;
 
 import java.util.List;
@@ -13,16 +13,16 @@ import java.util.List;
 @RestController
 @RequestMapping(value = UserRestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserRestaurantRestController extends AbstractRestaurantRestController {
-    static final String REST_URL = "/api/rest/restaurant";
+    static final String REST_URL = "/api/rest/restaurants";
 
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
         return super.get(id);
     }
 
-    @GetMapping("/{id}/with-menu")
-    public Restaurant getWithMenu(@PathVariable int id) {
-        return super.getWithMenu(id);
+    @GetMapping("/{id}/with-menu-items")
+    public Restaurant getWithMenuItems(@PathVariable int id) {
+        return super.getWithMenuItems(id);
     }
 
     @GetMapping
@@ -30,8 +30,8 @@ public class UserRestaurantRestController extends AbstractRestaurantRestControll
         return super.getAll();
     }
 
-    @GetMapping("/{id}/menus")
-    public List<Menu> getMenus(@PathVariable int id) {
-        return super.getMenus(id);
+    @GetMapping("/{id}/menu-items")
+    public List<MenuItem> getMenuItems(@PathVariable int id) {
+        return super.getMenuItems(id);
     }
 }

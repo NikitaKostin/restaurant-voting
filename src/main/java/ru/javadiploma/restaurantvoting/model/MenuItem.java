@@ -8,36 +8,36 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "menu",  uniqueConstraints = {@UniqueConstraint(columnNames = {"dish_id", "restaurant_id", "create_date"}, name = "menu_unique_dish_restaurant_create_date_idx")})
+@Table(name = "menu_item",  uniqueConstraints = {@UniqueConstraint(columnNames = {"dish_id", "restaurant_id", "offer_date"}, name = "menu_unique_dish_restaurant_offer_date_idx")})
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(callSuper = true, exclude = {"restaurant"})
-public class Menu extends BaseEntity {
+public class MenuItem extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dish_id")
     @NotNull
+    @ToString.Exclude
     protected Dish dish;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     @JsonIgnore
     @NotNull
+    @ToString.Exclude
     private Restaurant restaurant;
 
-    @Column(name = "create_date", nullable = false, columnDefinition = "date default now()", updatable = false)
+    @Column(name = "offer_date", nullable = false, columnDefinition = "date default now()", updatable = false)
     @NotNull
-    private LocalDate createDate;
+    private LocalDate offerDate;
 
-    public Menu(Integer id, Dish dish, Restaurant restaurant, LocalDate createDate) {
+    public MenuItem(Integer id, Dish dish, Restaurant restaurant, LocalDate offerDate) {
         super(id);
         this.dish = dish;
         this.restaurant = restaurant;
-        this.createDate = createDate;
+        this.offerDate = offerDate;
     }
 
-    public Menu(Integer id, LocalDate createDate) {
-        super(id);
-        this.createDate = createDate;
+    public MenuItem(Integer id, LocalDate offerDate) {
+        this(id, null, null, offerDate);
     }
 }

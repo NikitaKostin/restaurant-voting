@@ -2,10 +2,10 @@ package ru.javadiploma.restaurantvoting.web.restaurant;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.javadiploma.restaurantvoting.model.Menu;
+import ru.javadiploma.restaurantvoting.model.MenuItem;
 import ru.javadiploma.restaurantvoting.model.Restaurant;
 import ru.javadiploma.restaurantvoting.repository.RestaurantRepository;
-import ru.javadiploma.restaurantvoting.service.MenuService;
+import ru.javadiploma.restaurantvoting.service.MenuItemService;
 
 import java.util.List;
 
@@ -15,16 +15,16 @@ public abstract class AbstractRestaurantRestController {
     protected RestaurantRepository restaurantRepository;
 
     @Autowired
-    protected MenuService menuService;
+    protected MenuItemService menuItemService;
 
     public Restaurant get(int id) {
         log.info("get {}", id);
         return restaurantRepository.findById(id).orElse(null);
     }
 
-    public Restaurant getWithMenu(int id) {
-        log.info("get with menu {}", id);
-        return restaurantRepository.getWithMenu(id).orElse(null);
+    public Restaurant getWithMenuItems(int id) {
+        log.info("get with menu items {}", id);
+        return restaurantRepository.getWithMenuItems(id).orElse(null);
     }
 
     public List<Restaurant> getAll() {
@@ -32,13 +32,13 @@ public abstract class AbstractRestaurantRestController {
         return restaurantRepository.findAll();
     }
 
-    public List<Menu> getMenus(int id) {
-        log.info("get menus for restaurantId {}", id);
-        return menuService.getAll(id);
+    public List<MenuItem> getMenuItems(int id) {
+        log.info("get menu items for restaurantId {}", id);
+        return menuItemService.getAll(id);
     }
 
-    public Menu getMenu(int menuId, int restaurantId) {
-        log.info("get menu with menuId {} for restaurantId {}", menuId, restaurantId);
-        return menuService.get(menuId, restaurantId);
+    public MenuItem getMenuItem(int menuItemId, int restaurantId) {
+        log.info("get menu item with menuItemId {} for restaurantId {}", menuItemId, restaurantId);
+        return menuItemService.get(menuItemId, restaurantId);
     }
 }

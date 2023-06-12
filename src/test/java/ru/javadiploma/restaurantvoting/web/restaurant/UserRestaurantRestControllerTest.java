@@ -9,8 +9,8 @@ import ru.javadiploma.restaurantvoting.web.AbstractControllerTest;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.javadiploma.restaurantvoting.MenuTestData.MENU_MATCHER;
-import static ru.javadiploma.restaurantvoting.MenuTestData.firstRestaurantMenus;
+import static ru.javadiploma.restaurantvoting.MenuItemTestData.MENU_ITEM_MATCHER;
+import static ru.javadiploma.restaurantvoting.MenuItemTestData.FIRST_RESTAURANT_MENU_ITEMS;
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.*;
 
 import static ru.javadiploma.restaurantvoting.web.user.UserTestData.USER_MAIL;
@@ -31,11 +31,11 @@ class UserRestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getWithMenu() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_1_ID + "/with-menu"))
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_1_ID + "/with-menu-items"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(RESTAURANT_WITH_MENUS_MATCHER.contentJson(restaurant1));
+                .andExpect(RESTAURANT_WITH_MENU_ITEMS_MATCHER.contentJson(restaurant1));
     }
 
     @Test
@@ -51,10 +51,10 @@ class UserRestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getMenus() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_1_ID + "/menus/"))
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_1_ID + "/menu-items/"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MENU_MATCHER.contentJson(firstRestaurantMenus));
+                .andExpect(MENU_ITEM_MATCHER.contentJson(FIRST_RESTAURANT_MENU_ITEMS));
     }
 }
