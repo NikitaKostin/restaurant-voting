@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_vote",  uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "restaurant_id", "vote_date_time"}, name = "user_vote_unique_user_restaurant_vote_date_time_idx")})
+@Table(name = "user_vote",  uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "restaurant_id", "vote_date"}, name = "user_vote_unique_user_restaurant_vote_date_idx")})
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,17 +27,17 @@ public class UserVote extends BaseEntity {
     @ToString.Exclude
     private Restaurant restaurant;
 
-    @Column(name = "vote_date_time", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
+    @Column(name = "vote_date", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
-    private LocalDateTime voteDateTime = LocalDateTime.now();
+    private LocalDateTime voteDate = LocalDateTime.now();
 
     public UserVote(Integer id) {
         super(id);
     }
 
-    public UserVote(Integer id, LocalDateTime voteDateTime) {
+    public UserVote(Integer id, LocalDateTime voteDate) {
         super(id);
-        this.voteDateTime = voteDateTime;
+        this.voteDate = voteDate;
     }
 
     public UserVote(Integer id, User user, Restaurant restaurant) {
