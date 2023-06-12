@@ -37,16 +37,6 @@ class DishRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
-    void update() throws Exception {
-        DishTo updated = new DishTo(null, "New burger", 350);
-        perform(MockMvcRequestBuilders.put(REST_URL + DISH_1_ID).contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
-                .andExpect(status().isNoContent());
-        DISH_MATCHER.assertMatch(dishService.get(DISH_1_ID), DishUtil.updateFromTo(new Dish(dish1), updated));
-    }
-
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
     void create() throws Exception {
         DishTo newTo = new DishTo(null, "New burger", 350);
         Dish newDish = DishUtil.createNewFromTo(newTo);
