@@ -16,7 +16,7 @@ import javax.persistence.UniqueConstraint;
 @ToString
 public class Dish extends NamedEntity {
     @Column(name = "price", nullable = false)
-    @Range(min = 10, max = 1000000)
+    @Range(min = 1)
     private int price;
 
     public Dish(Dish d) {
