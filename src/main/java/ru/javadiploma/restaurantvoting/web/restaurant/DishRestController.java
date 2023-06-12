@@ -9,12 +9,9 @@ import ru.javadiploma.restaurantvoting.repository.DishRepository;
 import ru.javadiploma.restaurantvoting.to.DishTo;
 import ru.javadiploma.restaurantvoting.util.DishUtil;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
-
 import java.util.List;
 
-import static ru.javadiploma.restaurantvoting.util.validation.ValidationUtil.assureIdConsistent;
 import static ru.javadiploma.restaurantvoting.util.validation.ValidationUtil.checkNew;
 
 @RestController
@@ -33,16 +30,6 @@ public class DishRestController {
     @GetMapping("/")
     public List<Dish> getAll() {
         return dishRepository.findAll();
-    }
-
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Transactional
-    public void update(@Valid @RequestBody DishTo dishTo, @PathVariable int id) {
-        assureIdConsistent(dishTo, id);
-        Dish dish = get(dishTo.id());
-        DishUtil.updateFromTo(dish, dishTo);
-        dishRepository.save(dish);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

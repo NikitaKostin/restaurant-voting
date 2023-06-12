@@ -40,11 +40,4 @@ class DishServiceTest {
         DISH_MATCHER.assertMatch(created, newDish);
         DISH_MATCHER.assertMatch(dishService.get(newId), newDish);
     }
-
-    @Test
-    void update() {
-        DishTo updated = new DishTo(null, "New burger", 350);
-        dishService.update(updated, DISH_1_ID);
-        DISH_MATCHER.assertMatch(dishService.get(DISH_1_ID), getUpdated());
-    }
 }

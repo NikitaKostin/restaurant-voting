@@ -7,10 +7,7 @@ import ru.javadiploma.restaurantvoting.repository.DishRepository;
 import ru.javadiploma.restaurantvoting.to.DishTo;
 import ru.javadiploma.restaurantvoting.util.DishUtil;
 
-import javax.transaction.Transactional;
 import java.util.List;
-
-import static ru.javadiploma.restaurantvoting.util.validation.ValidationUtil.assureIdConsistent;
 
 @Service
 public class DishService {
@@ -29,11 +26,4 @@ public class DishService {
         return dishRepository.save(DishUtil.createNewFromTo(dishTo));
     }
 
-    @Transactional
-    public void update(DishTo dishTo, int id) {
-        assureIdConsistent(dishTo, id);
-        Dish dish = get(dishTo.id());
-        DishUtil.updateFromTo(dish, dishTo);
-        dishRepository.save(dish);
-    }
 }
