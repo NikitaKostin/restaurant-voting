@@ -1,5 +1,6 @@
 package ru.javadiploma.restaurantvoting.service;
 
+import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
+import ru.javadiploma.restaurantvoting.error.ResourceNotFoundException;
 import ru.javadiploma.restaurantvoting.model.UserVote;
+import ru.javadiploma.restaurantvoting.repository.UserVoteRepository;
 import ru.javadiploma.restaurantvoting.to.UserVoteTo;
+
+import java.util.Objects;
 
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_1_ID;
 import static ru.javadiploma.restaurantvoting.UserVoteTestData.*;
@@ -22,11 +27,8 @@ class UserVoteServiceTest {
     @Autowired
     UserVoteService userVoteService;
 
-    @Test
-    void get() {
-        UserVote userVote = userVoteService.get(USER_VOTE_1_ID, USER_ID, RESTAURANT_1_ID);
-        USER_VOTE_MATCHER.assertMatch(userVote, userVote1);
-    }
+    @Autowired
+    UserVoteRepository userVoteRepository;
 
     @Test
     void vote() {
@@ -35,6 +37,13 @@ class UserVoteServiceTest {
         UserVote newUserVote = getNew();
         newUserVote.setId(newId);
         USER_VOTE_MATCHER.assertMatch(created, newUserVote);
-        USER_VOTE_MATCHER.assertMatch(userVoteService.get(newId, USER_ID, RESTAURANT_1_ID), newUserVote);
+        val userVoteFromDb = userVoteRepository.findById(newId)
+                .filter(userVote -> Objects.equals(userVote.getUser().getId(), USER_ID) &&
+                        Objects.equals(userVote.getRestaurant().getId(), RESTAURANT_1_ID)
+                )
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("User vote with id " + newId + " not found")
+                );
+        USER_VOTE_MATCHER.assertMatch(userVoteFromDb, newUserVote);
     }
 }

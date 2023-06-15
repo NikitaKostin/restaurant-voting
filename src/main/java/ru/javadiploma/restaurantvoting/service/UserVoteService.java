@@ -21,14 +21,6 @@ public class UserVoteService {
     @Autowired
     protected RestaurantRepository restaurantRepository;
 
-    public UserVote get(int id, int userId, int restaurantId) {
-        return userVoteRepository.findById(id)
-                .filter(userVote -> Objects.equals(userVote.getUser().getId(), userId) &&
-                        Objects.equals(userVote.getRestaurant().getId(), restaurantId)
-                )
-                .orElse(null);
-    }
-
     public UserVote vote(UserVoteTo userVoteTo, int userId) {
         if (LocalDateTime.now().toLocalTime().isBefore(LocalTime.of(23, 0, 0))) {
             return userVoteRepository.save(new UserVote(

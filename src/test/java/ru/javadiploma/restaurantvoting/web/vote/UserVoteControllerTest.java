@@ -1,18 +1,22 @@
 package ru.javadiploma.restaurantvoting.web.vote;
 
+import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import ru.javadiploma.restaurantvoting.error.ResourceNotFoundException;
 import ru.javadiploma.restaurantvoting.model.UserVote;
 import ru.javadiploma.restaurantvoting.repository.RestaurantRepository;
 import ru.javadiploma.restaurantvoting.repository.UserRepository;
-import ru.javadiploma.restaurantvoting.service.UserVoteService;
+import ru.javadiploma.restaurantvoting.repository.UserVoteRepository;
 import ru.javadiploma.restaurantvoting.to.UserVoteTo;
 import ru.javadiploma.restaurantvoting.util.JsonUtil;
 import ru.javadiploma.restaurantvoting.web.AbstractControllerTest;
+
+import java.util.Objects;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,7 +35,7 @@ class UserVoteControllerTest extends AbstractControllerTest {
     private RestaurantRepository restaurantRepository;
 
     @Autowired
-    private UserVoteService userVoteService;
+    private UserVoteRepository userVoteRepository;
 
     @Test
     @WithUserDetails(value = USER_MAIL)
@@ -51,6 +55,13 @@ class UserVoteControllerTest extends AbstractControllerTest {
         int newId = created.id();
         newUserVote.setId(newId);
         USER_VOTE_MATCHER.assertMatch(created, newUserVote);
-        USER_VOTE_MATCHER.assertMatch(userVoteService.get(newId, USER_ID, RESTAURANT_1_ID), newUserVote);
+        val userVoteFromDb = userVoteRepository.findById(newId)
+                .filter(userVote -> Objects.equals(userVote.getUser().getId(), USER_ID) &&
+                        Objects.equals(userVote.getRestaurant().getId(), RESTAURANT_1_ID)
+                )
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("User vote with id " + newId + " not found")
+                );
+        USER_VOTE_MATCHER.assertMatch(userVoteFromDb, newUserVote);
     }
 }
