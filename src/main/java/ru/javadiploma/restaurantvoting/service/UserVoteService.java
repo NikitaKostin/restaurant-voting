@@ -10,7 +10,6 @@ import ru.javadiploma.restaurantvoting.to.UserVoteTo;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Objects;
 
 @Service
 public class UserVoteService {
@@ -22,7 +21,15 @@ public class UserVoteService {
     protected RestaurantRepository restaurantRepository;
 
     public UserVote vote(UserVoteTo userVoteTo, int userId) {
-        if (LocalDateTime.now().toLocalTime().isBefore(LocalTime.of(23, 0, 0))) {
+        return userVoteRepository.save(new UserVote(
+                null,
+                userRepository.getById(userId),
+                restaurantRepository.getById(userVoteTo.getRestaurantId())
+        ));
+    }
+
+    public UserVote changeVote(UserVoteTo userVoteTo, int userId) {
+        if (LocalDateTime.now().toLocalTime().isBefore(LocalTime.of(11, 0, 0))) {
             return userVoteRepository.save(new UserVote(
                     null,
                     userRepository.getById(userId),
