@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import ru.javadiploma.restaurantvoting.error.ResourceNotFoundException;
 import ru.javadiploma.restaurantvoting.model.MenuItem;
 import ru.javadiploma.restaurantvoting.repository.DishRepository;
 import ru.javadiploma.restaurantvoting.repository.MenuItemRepository;
@@ -28,7 +29,10 @@ public class MenuItemService {
 
     public MenuItem get(int menuItemId, int restaurantId) {
         return menuItemRepository.findById(menuItemId)
-                .filter(menuItem -> Objects.equals(menuItem.getRestaurant().getId(), restaurantId)).orElse(null);
+                .filter(menuItem -> Objects.equals(menuItem.getRestaurant().getId(), restaurantId))
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Menu item with id " + menuItemId + " not found")
+                );
     }
 
     @CacheEvict(value = "menuItem", allEntries = true)
