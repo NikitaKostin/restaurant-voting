@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -29,13 +30,13 @@ public class UserVote extends BaseEntity {
 
     @Column(name = "vote_date", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
-    private LocalDateTime voteDate = LocalDateTime.now();
+    private LocalDate voteDate = LocalDate.now();
 
     public UserVote(Integer id) {
         super(id);
     }
 
-    public UserVote(Integer id, LocalDateTime voteDate) {
+    public UserVote(Integer id, LocalDate voteDate) {
         super(id);
         this.voteDate = voteDate;
     }
