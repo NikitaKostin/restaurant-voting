@@ -31,7 +31,7 @@ class UserRestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getWithMenu() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_1_ID + "/with-menu-items"))
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_1_ID + "/menu-items-with-dish"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

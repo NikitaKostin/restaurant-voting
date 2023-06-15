@@ -36,9 +36,9 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
         return super.get(id);
     }
 
-    @GetMapping("/{id}/with-menu-items")
-    public Restaurant getWithMenuItems(@PathVariable int id) {
-        return super.getWithMenuItems(id);
+    @GetMapping("/{id}/menu-items-with-dish")
+    public Restaurant getMenuItemsWithDish(@PathVariable int id) {
+        return super.getMenuItemsWithDish(id);
     }
 
     @GetMapping

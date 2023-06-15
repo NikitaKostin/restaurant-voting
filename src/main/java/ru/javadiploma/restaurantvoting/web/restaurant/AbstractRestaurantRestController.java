@@ -7,6 +7,7 @@ import ru.javadiploma.restaurantvoting.model.Restaurant;
 import ru.javadiploma.restaurantvoting.repository.RestaurantRepository;
 import ru.javadiploma.restaurantvoting.service.MenuItemService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -22,9 +23,9 @@ public abstract class AbstractRestaurantRestController {
         return restaurantRepository.findById(id).orElse(null);
     }
 
-    public Restaurant getWithMenuItems(int id) {
-        log.info("get with menu items {}", id);
-        return restaurantRepository.getWithMenuItems(id).orElse(null);
+    public Restaurant getMenuItemsWithDish(int id) {
+        log.info("get menu items {} with dish", id);
+        return restaurantRepository.getMenuItemsWithDishByDate(id, LocalDate.now()).orElse(null);
     }
 
     public List<Restaurant> getAll() {
