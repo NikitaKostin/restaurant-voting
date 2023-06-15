@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import ru.javadiploma.restaurantvoting.error.ResourceNotFoundException;
 import ru.javadiploma.restaurantvoting.model.Dish;
 import ru.javadiploma.restaurantvoting.repository.DishRepository;
 import ru.javadiploma.restaurantvoting.to.DishTo;
@@ -24,7 +25,9 @@ public class DishRestController {
 
     @GetMapping("/{id}")
     public Dish get(@PathVariable int id) {
-        return dishRepository.findById(id).orElse(null);
+        return dishRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Dish with id " + id + " not found")
+        );
     }
 
     @GetMapping("/")

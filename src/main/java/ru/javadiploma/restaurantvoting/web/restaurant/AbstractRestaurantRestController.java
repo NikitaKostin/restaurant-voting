@@ -2,6 +2,7 @@ package ru.javadiploma.restaurantvoting.web.restaurant;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.javadiploma.restaurantvoting.error.ResourceNotFoundException;
 import ru.javadiploma.restaurantvoting.model.MenuItem;
 import ru.javadiploma.restaurantvoting.model.Restaurant;
 import ru.javadiploma.restaurantvoting.repository.RestaurantRepository;
@@ -20,12 +21,16 @@ public abstract class AbstractRestaurantRestController {
 
     public Restaurant get(int id) {
         log.info("get {}", id);
-        return restaurantRepository.findById(id).orElse(null);
+        return restaurantRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Restaurant with id " + id + " not found")
+        );
     }
 
     public Restaurant getMenuItemsWithDish(int id) {
         log.info("get menu items {} with dish", id);
-        return restaurantRepository.getMenuItemsWithDishByDate(id, LocalDate.now()).orElse(null);
+        return restaurantRepository.getMenuItemsWithDishByDate(id, LocalDate.now()).orElseThrow(
+                () -> new ResourceNotFoundException("Restaurant with id " + id + " not found")
+        );
     }
 
     public List<Restaurant> getAll() {

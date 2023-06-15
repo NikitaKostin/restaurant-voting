@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.javadiploma.restaurantvoting.error.AppException;
+import ru.javadiploma.restaurantvoting.error.ResourceNotFoundException;
 import ru.javadiploma.restaurantvoting.util.validation.ValidationUtil;
 
 import javax.persistence.EntityNotFoundException;
@@ -88,5 +89,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("Exception", ex);
         super.handleExceptionInternal(ex, body, headers, status, request);
         return createResponseEntity(getDefaultBody(request, ErrorAttributeOptions.of(), ValidationUtil.getRootCause(ex).getMessage()), status);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<AppError> catchResourceNotFoundException(ResourceNotFoundException e) {
+        log.error(e.getMessage(), e);
+        return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 }
