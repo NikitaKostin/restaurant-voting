@@ -11,7 +11,6 @@ import ru.javadiploma.restaurantvoting.MenuItemTestData;
 import ru.javadiploma.restaurantvoting.model.MenuItem;
 import ru.javadiploma.restaurantvoting.to.MenuItemTo;
 
-import static ru.javadiploma.restaurantvoting.DishTestData.DISH_7_ID;
 import static ru.javadiploma.restaurantvoting.DishTestData.DISH_9_ID;
 import static ru.javadiploma.restaurantvoting.MenuItemTestData.*;
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_1_ID;
