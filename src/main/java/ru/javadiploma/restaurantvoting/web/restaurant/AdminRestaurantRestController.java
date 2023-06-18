@@ -54,7 +54,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
     public void update(@RequestBody RestaurantTo restaurantTo, @PathVariable int id) {
         assureIdConsistent(restaurantTo, id);
         Restaurant restaurant = get(restaurantTo.id());
-        RestaurantUtil.updateFromTo(restaurant, restaurantTo);
+        restaurant.setName(restaurantTo.getName());
         restaurantRepository.save(restaurant);
     }
 
