@@ -1,9 +1,12 @@
 package ru.javadiploma.restaurantvoting.web.restaurant;
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javadiploma.restaurantvoting.error.ResourceNotFoundException;
 import ru.javadiploma.restaurantvoting.model.Dish;
 import ru.javadiploma.restaurantvoting.repository.DishRepository;
@@ -37,8 +40,12 @@ public class DishRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Dish create(@Valid @RequestBody DishTo dishTo) {
+    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody DishTo dishTo) {
         checkNew(dishTo);
-        return dishRepository.save(DishUtil.createNewFromTo(dishTo));
+        val created = dishRepository.save(DishUtil.createNewFromTo(dishTo));
+        val uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(uriOfNewResource).body(created);
     }
 }
