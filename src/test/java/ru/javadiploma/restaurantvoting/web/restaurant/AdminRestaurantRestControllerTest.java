@@ -1,5 +1,6 @@
 package ru.javadiploma.restaurantvoting.web.restaurant;
 
+import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -43,8 +44,9 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
-        RESTAURANT_MATCHER.assertMatch(restaurantRepository.findById(RESTAURANT_1_ID).orElse(null),
-                RestaurantUtil.updateFromTo(new Restaurant(restaurant1), updated));
+        val restaurant = new Restaurant(restaurant1);
+        restaurant.setName(updated.getName());
+        RESTAURANT_MATCHER.assertMatch(restaurantRepository.findById(RESTAURANT_1_ID).orElse(null), restaurant);
     }
 
     @Test
