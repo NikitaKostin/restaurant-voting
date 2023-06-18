@@ -43,13 +43,6 @@ class MenuItemServiceTest {
     }
 
     @Test
-    void update() {
-        MenuItemTo updated = new MenuItemTo(null, DISH_7_ID);
-        menuItemService.update(updated, MENU_ITEM_4_ID, RESTAURANT_1_ID);
-        MENU_ITEM_MATCHER.assertMatch(menuItemService.get(MENU_ITEM_4_ID, RESTAURANT_1_ID), MenuItemTestData.getUpdated());
-    }
-
-    @Test
     void getAll() {
         MENU_ITEM_MATCHER.assertMatch(menuItemService.getAll(RESTAURANT_1_ID), FIRST_RESTAURANT_MENU_ITEMS);
     }

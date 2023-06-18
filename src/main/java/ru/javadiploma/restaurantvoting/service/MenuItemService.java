@@ -49,8 +49,7 @@ public class MenuItemService {
 
     @CacheEvict(value = "menuItem", allEntries = true)
     @Transactional
-    public void update(MenuItemTo menuItemTo, int menuId, int restaurantId) {
-        assureIdConsistent(menuItemTo, menuId);
+    public void update(MenuItemTo menuItemTo, int restaurantId) {
         MenuItem menuItem = get(menuItemTo.id(), restaurantId);
         menuItem.setDish(dishRepository.getById(menuItemTo.getDishId()));
     }

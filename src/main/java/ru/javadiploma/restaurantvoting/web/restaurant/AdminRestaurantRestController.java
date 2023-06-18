@@ -84,6 +84,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
     @PutMapping(value = "/{id}/menu-items/{menuItemId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateMenuItem(@Valid @RequestBody MenuItemTo menuItemTo, @PathVariable int id, @PathVariable int menuItemId) {
-        menuItemService.update(menuItemTo, menuItemId, id);
+        assureIdConsistent(menuItemTo, menuItemId);
+        menuItemService.update(menuItemTo, id);
     }
 }
