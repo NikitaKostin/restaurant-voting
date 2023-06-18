@@ -9,9 +9,4 @@ public class DishUtil {
         return new Dish(null, dishTo.getName(), dishTo.getPrice());
     }
 
-    public static Dish updateFromTo(Dish dish, DishTo dishTo) {
-        dish.setName(dishTo.getName());
-        dish.setPrice(dishTo.getPrice());
-        return dish;
-    }
 }
