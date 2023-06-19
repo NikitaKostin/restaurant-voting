@@ -58,9 +58,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
     @Transactional
     public void update(@RequestBody RestaurantTo restaurantTo, @PathVariable int id) {
         assureIdConsistent(restaurantTo, id);
-        Restaurant restaurant = get(restaurantTo.id());
-        restaurant.setName(restaurantTo.getName());
-        restaurantRepository.save(restaurant);
+        restaurantRepository.save(new Restaurant(id, restaurantTo.getName()));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

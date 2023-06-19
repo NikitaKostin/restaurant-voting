@@ -20,6 +20,7 @@ import ru.javadiploma.restaurantvoting.web.AbstractControllerTest;
 import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javadiploma.restaurantvoting.DishTestData.DISH_10_ID;
 import static ru.javadiploma.restaurantvoting.DishTestData.DISH_4_ID;
@@ -90,5 +91,15 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
         MENU_ITEM_MATCHER.assertMatch(menuItemService.get(MENU_ITEM_7_ID, RESTAURANT_1_ID), new MenuItem(MENU_ITEM_7_ID, LocalDate.of(2023, 4, 5)));
+    }
+
+    @Test
+    @WithUserDetails(value = ADMIN_MAIL)
+    void getAll() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_1_ID + "/menu-items-with-dish/"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(TO_MATCHER.contentJson(FIRST_RESTAURANT_CURRENT_MENU_ITEMS.stream().map(menuItem -> new MenuItemTo(menuItem.getId(), 2)).toList()));
     }
 }
