@@ -24,6 +24,7 @@ public class UserVote extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     @ToString.Exclude
     private Restaurant restaurant;

@@ -69,4 +69,9 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id){
+        super.deleteById(id);
+    }
+
 }

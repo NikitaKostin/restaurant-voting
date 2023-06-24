@@ -58,4 +58,14 @@ public class MenuItemService {
     public List<MenuItem> getAll(int restaurantId) {
         return menuItemRepository.getAll(restaurantId);
     }
+
+    @CacheEvict(value = "menuItem", allEntries = true)
+    public void delete(int menuItemId, int restaurantId) {
+        menuItemRepository.delete(menuItemRepository.findById(menuItemId)
+                .filter(menuItem -> Objects.equals(menuItem.getRestaurant().getId(), restaurantId))
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Menu item with id " + menuItemId + " not found")
+                )
+        );
+    }
 }

@@ -47,4 +47,9 @@ public class AdminMenuItemRestController extends MenuItemRestController {
         assureIdConsistent(menuItemTo, menuItemId);
         menuItemService.update(menuItemTo, id);
     }
+
+    @DeleteMapping("/{id}/menu-items/{menuItemId}")
+    public void deleteMenuItem(@PathVariable int id, @PathVariable int menuItemId) {
+        super.delete(menuItemId, id);
+    }
 }

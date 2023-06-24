@@ -2,6 +2,8 @@ package ru.javadiploma.restaurantvoting.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,6 +24,7 @@ public class MenuItem extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     @ToString.Exclude
     private Restaurant restaurant;

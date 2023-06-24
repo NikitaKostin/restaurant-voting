@@ -34,4 +34,12 @@ public abstract class AbstractRestaurantRestController {
         log.info("get all");
         return restaurantRepository.findAll();
     }
+
+    public void deleteById(int id) {
+        log.info("delete {}", id);
+        restaurantRepository.delete(restaurantRepository.findById(id).orElseThrow(
+                        () -> new ResourceNotFoundException("Restaurant with id " + id + " not found")
+                )
+        );
+    }
 }

@@ -21,4 +21,9 @@ public abstract class MenuItemRestController {
         log.info("get menu item with menuItemId {} for restaurantId {}", menuItemId, restaurantId);
         return menuItemService.get(menuItemId, restaurantId);
     }
+
+    public void delete(int menuItemId, int restaurantId) {
+        log.info("delete menu item with menuItemId {} for restaurantId {}", menuItemId, restaurantId);
+        menuItemService.delete(menuItemId, restaurantId);
+    }
 }
