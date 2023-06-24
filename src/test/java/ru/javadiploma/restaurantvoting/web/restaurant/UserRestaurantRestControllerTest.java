@@ -9,10 +9,7 @@ import ru.javadiploma.restaurantvoting.web.AbstractControllerTest;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.javadiploma.restaurantvoting.MenuItemTestData.MENU_ITEM_MATCHER;
-import static ru.javadiploma.restaurantvoting.MenuItemTestData.FIRST_RESTAURANT_MENU_ITEMS;
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.*;
-
 import static ru.javadiploma.restaurantvoting.web.user.UserTestData.USER_MAIL;
 
 class UserRestaurantRestControllerTest extends AbstractControllerTest {
@@ -30,7 +27,7 @@ class UserRestaurantRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = USER_MAIL)
-    void getWithMenu() throws Exception {
+    void getMenuItemsWithDish() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_1_ID + "/menu-items-with-dish"))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -46,15 +43,5 @@ class UserRestaurantRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(RESTAURANT_MATCHER.contentJson(restaurants));
-    }
-
-    @Test
-    @WithUserDetails(value = USER_MAIL)
-    void getMenus() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_1_ID + "/menu-items/"))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MENU_ITEM_MATCHER.contentJson(FIRST_RESTAURANT_MENU_ITEMS));
     }
 }

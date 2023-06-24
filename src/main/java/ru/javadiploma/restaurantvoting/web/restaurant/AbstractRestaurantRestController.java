@@ -16,9 +16,6 @@ public abstract class AbstractRestaurantRestController {
     @Autowired
     protected RestaurantRepository restaurantRepository;
 
-    @Autowired
-    protected MenuItemService menuItemService;
-
     public Restaurant get(int id) {
         log.info("get {}", id);
         return restaurantRepository.findById(id).orElseThrow(
@@ -26,9 +23,9 @@ public abstract class AbstractRestaurantRestController {
         );
     }
 
-    public Restaurant getMenuItemsWithDish(int id) {
-        log.info("get menu items {} with dish", id);
-        return restaurantRepository.getMenuItemsWithDishByDate(id, LocalDate.now()).orElseThrow(
+    public Restaurant getRestaurantMenuItemsWithDish(int id) {
+        log.info("get restaurant menu items {} with dish", id);
+        return restaurantRepository.getRestaurantMenuItemsWithDishByDate(id, LocalDate.now()).orElseThrow(
                 () -> new ResourceNotFoundException("Restaurant with id " + id + " not found")
         );
     }
@@ -36,15 +33,5 @@ public abstract class AbstractRestaurantRestController {
     public List<Restaurant> getAll() {
         log.info("get all");
         return restaurantRepository.findAll();
-    }
-
-    public List<MenuItem> getMenuItems(int id) {
-        log.info("get menu items for restaurantId {}", id);
-        return menuItemService.getAll(id);
-    }
-
-    public MenuItem getMenuItem(int menuItemId, int restaurantId) {
-        log.info("get menu item with menuItemId {} for restaurantId {}", menuItemId, restaurantId);
-        return menuItemService.get(menuItemId, restaurantId);
     }
 }

@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.javadiploma.restaurantvoting.model.MenuItem;
 import ru.javadiploma.restaurantvoting.model.Restaurant;
 
 import java.util.List;
@@ -20,18 +19,13 @@ public class UserRestaurantRestController extends AbstractRestaurantRestControll
         return super.get(id);
     }
 
-    @GetMapping("/{id}/menu-items-with-dish")
-    public Restaurant getMenuItemsWithDish(@PathVariable int id) {
-        return super.getMenuItemsWithDish(id);
-    }
-
     @GetMapping
     public List<Restaurant> getAll() {
         return super.getAll();
     }
 
-    @GetMapping("/{id}/menu-items")
-    public List<MenuItem> getMenuItems(@PathVariable int id) {
-        return super.getMenuItems(id);
+    @GetMapping("/{id}/menu-items-with-dish")
+    public Restaurant getRestaurantMenuItemsWithDish(@PathVariable int id) {
+        return super.getRestaurantMenuItemsWithDish(id);
     }
 }

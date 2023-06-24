@@ -9,17 +9,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.javadiploma.restaurantvoting.model.MenuItem;
 import ru.javadiploma.restaurantvoting.model.Restaurant;
 import ru.javadiploma.restaurantvoting.repository.RestaurantRepository;
 import ru.javadiploma.restaurantvoting.service.MenuItemService;
-import ru.javadiploma.restaurantvoting.to.MenuItemTo;
 import ru.javadiploma.restaurantvoting.to.RestaurantTo;
 import ru.javadiploma.restaurantvoting.util.RestaurantUtil;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 import static ru.javadiploma.restaurantvoting.util.validation.ValidationUtil.assureIdConsistent;
@@ -42,8 +38,8 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
     }
 
     @GetMapping("/{id}/menu-items-with-dish")
-    public Restaurant getMenuItemsWithDish(@PathVariable int id) {
-        return super.getMenuItemsWithDish(id);
+    public Restaurant getRestaurantMenuItemsWithDish(@PathVariable int id) {
+        return super.getRestaurantMenuItemsWithDish(id);
     }
 
     @GetMapping
@@ -73,31 +69,4 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @GetMapping("/{id}/menu-items/{menuItemId}")
-    public MenuItem getMenuItem(@PathVariable int id, @PathVariable int menuItemId) {
-        return super.getMenuItem(menuItemId, id);
-    }
-
-    @GetMapping("/{id}/menu-items")
-    public List<MenuItem> getMenuItems(@PathVariable int id) {
-        return super.getMenuItems(id);
-    }
-
-    @PostMapping("/{id}/menu-items")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<MenuItem> createMenuItemWithLocation(@Valid @RequestBody MenuItemTo menuItemTo, @PathVariable int id) {
-        checkNew(menuItemTo);
-        val created = menuItemService.create(menuItemTo, id);
-        val uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
-        return ResponseEntity.created(uriOfNewResource).body(created);
-    }
-
-    @PutMapping(value = "/{id}/menu-items/{menuItemId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateMenuItem(@Valid @RequestBody MenuItemTo menuItemTo, @PathVariable int id, @PathVariable int menuItemId) {
-        assureIdConsistent(menuItemTo, menuItemId);
-        menuItemService.update(menuItemTo, id);
-    }
 }
