@@ -16,8 +16,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-import static ru.javadiploma.restaurantvoting.util.validation.ValidationUtil.assureIdConsistent;
-
 @Service
 public class MenuItemService {
     @Autowired
