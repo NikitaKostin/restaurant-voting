@@ -1,5 +1,6 @@
 package ru.javadiploma.restaurantvoting.service;
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javadiploma.restaurantvoting.error.IllegalRequestDataException;
@@ -12,7 +13,6 @@ import ru.javadiploma.restaurantvoting.to.UserVoteTo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Optional;
 
 @Service
 public class UserVoteService {
@@ -24,7 +24,7 @@ public class UserVoteService {
     protected RestaurantRepository restaurantRepository;
 
     public UserVote vote(UserVoteTo userVoteTo, int userId) {
-        Optional<UserVote> userVote = userVoteRepository.getByUserAndVoteDate(userRepository.getById(userId), LocalDate.now());
+        val userVote = userVoteRepository.getByUserAndVoteDateEquals(userRepository.getById(userId), LocalDate.now());
 
         if (userVote.isPresent()) {
             if (LocalDateTime.now().toLocalTime().isBefore(LocalTime.of(11, 0, 0))) {

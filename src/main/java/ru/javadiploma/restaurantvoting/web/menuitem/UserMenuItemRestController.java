@@ -18,4 +18,9 @@ public class UserMenuItemRestController extends MenuItemRestController {
     public List<MenuItem> getMenuItems(@PathVariable int id) {
         return super.getMenuItems(id);
     }
+
+    @GetMapping("/{id}/menu-items/{menuItemId}")
+    public MenuItem getMenuItem(@PathVariable int id, @PathVariable int menuItemId) {
+        return super.getMenuItem(menuItemId, id);
+    }
 }

@@ -26,8 +26,7 @@ public class MenuItemService {
     protected RestaurantRepository restaurantRepository;
 
     public MenuItem get(int menuItemId, int restaurantId) {
-        return menuItemRepository.findById(menuItemId)
-                .filter(menuItem -> Objects.equals(menuItem.getRestaurant().getId(), restaurantId))
+        return menuItemRepository.getWithRestaurantAndDish(menuItemId, restaurantId)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Menu item with id " + menuItemId + " not found")
                 );

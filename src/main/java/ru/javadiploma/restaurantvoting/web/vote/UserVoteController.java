@@ -39,7 +39,7 @@ public class UserVoteController {
 
     @GetMapping("/today")
     public UserVote get(@AuthenticationPrincipal AuthUser authUser) {
-        return userVoteRepository.getByUserAndVoteDate(userRepository.getById(authUser.id()), LocalDate.now()).orElseThrow(
+        return userVoteRepository.getByUserAndVoteDateEquals(userRepository.getById(authUser.id()), LocalDate.now()).orElseThrow(
                 () -> new ResourceNotFoundException("You haven't voted today")
         );
     }

@@ -16,11 +16,10 @@ import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.javadiploma.restaurantvoting.DishTestData.DISH_10_ID;
-import static ru.javadiploma.restaurantvoting.DishTestData.DISH_4_ID;
+import static ru.javadiploma.restaurantvoting.DishTestData.*;
 import static ru.javadiploma.restaurantvoting.MenuItemTestData.MENU_ITEM_7_ID;
 import static ru.javadiploma.restaurantvoting.MenuItemTestData.MENU_ITEM_MATCHER;
-import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_1_ID;
+import static ru.javadiploma.restaurantvoting.RestaurantTestData.*;
 import static ru.javadiploma.restaurantvoting.web.user.UserTestData.ADMIN_MAIL;
 
 class AdminMenuItemRestControllerTest extends AbstractControllerTest {
@@ -41,7 +40,7 @@ class AdminMenuItemRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isCreated());
         MenuItem created = MENU_ITEM_MATCHER.readFromJson(action);
         int newId = created.id();
-        MenuItem newMenuItem = new MenuItem(newId, LocalDate.now());
+        MenuItem newMenuItem = new MenuItem(newId,dish10, restaurant1, LocalDate.now());
         MENU_ITEM_MATCHER.assertMatch(created, newMenuItem);
         MENU_ITEM_MATCHER.assertMatch(menuItemService.get(newId, RESTAURANT_1_ID), newMenuItem);
     }
@@ -53,7 +52,7 @@ class AdminMenuItemRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.put(REST_URL + RESTAURANT_1_ID + "/menu-items/" + MENU_ITEM_7_ID).contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
-        MENU_ITEM_MATCHER.assertMatch(menuItemService.get(MENU_ITEM_7_ID, RESTAURANT_1_ID), new MenuItem(MENU_ITEM_7_ID, LocalDate.of(2023, 4, 5)));
+       MENU_ITEM_MATCHER.assertMatch(menuItemService.get(MENU_ITEM_7_ID, RESTAURANT_1_ID), new MenuItem(MENU_ITEM_7_ID, dish7, restaurant2, LocalDate.of(2023, 4, 5)));
     }
 
 }

@@ -11,10 +11,9 @@ import ru.javadiploma.restaurantvoting.MenuItemTestData;
 import ru.javadiploma.restaurantvoting.model.MenuItem;
 import ru.javadiploma.restaurantvoting.to.MenuItemTo;
 
-import static ru.javadiploma.restaurantvoting.DishTestData.DISH_9_ID;
+import static ru.javadiploma.restaurantvoting.DishTestData.*;
 import static ru.javadiploma.restaurantvoting.MenuItemTestData.*;
-import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_1_ID;
-import static ru.javadiploma.restaurantvoting.RestaurantTestData.RESTAURANT_2_ID;
+import static ru.javadiploma.restaurantvoting.RestaurantTestData.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -29,6 +28,8 @@ class MenuItemServiceTest {
     void get() {
         MenuItem menuItem = menuItemService.get(MENU_ITEM_1_ID, RESTAURANT_1_ID);
         MENU_ITEM_MATCHER.assertMatch(menuItem, MENU_ITEM_1);
+        RESTAURANT_MATCHER.assertMatch(menuItem.getRestaurant(), restaurant1);
+        DISH_MATCHER.assertMatch(menuItem.getDish(), dish1);
     }
 
     @Test

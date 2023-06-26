@@ -39,8 +39,4 @@ public class MenuItem extends BaseEntity {
         this.restaurant = restaurant;
         this.offerDate = offerDate;
     }
-
-    public MenuItem(Integer id, LocalDate offerDate) {
-        this(id, null, null, offerDate);
-    }
 }
