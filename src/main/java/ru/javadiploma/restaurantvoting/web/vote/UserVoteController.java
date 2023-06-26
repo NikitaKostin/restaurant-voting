@@ -39,13 +39,13 @@ public class UserVoteController {
 
     @GetMapping("/today")
     public UserVote get(@AuthenticationPrincipal AuthUser authUser) {
-        return userVoteRepository.getByUserAndVoteDateEquals(userRepository.getById(authUser.id()), LocalDate.now()).orElseThrow(
+        return userVoteRepository.getByUserAndVoteDate(userRepository.getById(authUser.id()), LocalDate.now()).orElseThrow(
                 () -> new ResourceNotFoundException("You haven't voted today")
         );
     }
 
     @GetMapping("/all")
     public List<UserVote> getAll(@AuthenticationPrincipal AuthUser authUser) {
-        return userVoteRepository.getAllByUser(userRepository.getById(authUser.id()));
+        return userVoteRepository.getAllByUserOrderByVoteDateDesc(userRepository.getById(authUser.id()));
     }
 }

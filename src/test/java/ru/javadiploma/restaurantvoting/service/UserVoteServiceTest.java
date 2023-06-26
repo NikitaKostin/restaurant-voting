@@ -20,7 +20,6 @@ import ru.javadiploma.restaurantvoting.to.UserVoteTo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import static ru.javadiploma.restaurantvoting.RestaurantTestData.*;
 import static ru.javadiploma.restaurantvoting.UserVoteTestData.USER_VOTE_MATCHER;
@@ -43,7 +42,7 @@ class UserVoteServiceTest {
 
     @Test
     void vote() {
-        val userVote = userVoteRepository.getByUserAndVoteDateEquals(userRepository.getById(USER_ID), LocalDate.now());
+        val userVote = userVoteRepository.getByUserAndVoteDate(userRepository.getById(USER_ID), LocalDate.now());
 
         if (userVote.isPresent() && !LocalDateTime.now().toLocalTime().isBefore(allowedVoteTime)) {
             Assertions.assertThrows(IllegalRequestDataException.class,

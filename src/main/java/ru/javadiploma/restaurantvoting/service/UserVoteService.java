@@ -24,7 +24,7 @@ public class UserVoteService {
     protected RestaurantRepository restaurantRepository;
 
     public UserVote vote(UserVoteTo userVoteTo, int userId) {
-        val userVote = userVoteRepository.getByUserAndVoteDateEquals(userRepository.getById(userId), LocalDate.now());
+        val userVote = userVoteRepository.getByUserAndVoteDate(userRepository.getById(userId), LocalDate.now());
 
         if (userVote.isPresent()) {
             if (LocalDateTime.now().toLocalTime().isBefore(LocalTime.of(11, 0, 0))) {

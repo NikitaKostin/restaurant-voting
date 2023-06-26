@@ -39,5 +39,6 @@ VALUES (1, 1, 1, '2023-04-04'),
 INSERT INTO user_vote (id, user_id, restaurant_id, vote_date)
 VALUES (1, 1, 1, '2023-04-04'),
        (2, 3, 2, '2023-04-04'),
-       (3, 1, 1, CURRENT_DATE()),
-       (4, 3, 2, '2023-04-05');
+       (3, 2, 2, '2023-04-04'),
+       (4, 1, 1, CURRENT_DATE()),
+       (5, 3, 2, '2023-04-05');

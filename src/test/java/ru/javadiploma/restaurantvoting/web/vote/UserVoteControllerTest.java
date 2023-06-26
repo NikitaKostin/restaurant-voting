@@ -19,7 +19,6 @@ import ru.javadiploma.restaurantvoting.web.AbstractControllerTest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,7 +49,7 @@ class UserVoteControllerTest extends AbstractControllerTest {
                 userRepository.getById(USER_ID),
                 restaurantRepository.getById(newTo.getRestaurantId())
         );
-        val oldUserVote = userVoteRepository.getByUserAndVoteDateEquals(userRepository.getById(USER_ID), LocalDate.now());
+        val oldUserVote = userVoteRepository.getByUserAndVoteDate(userRepository.getById(USER_ID), LocalDate.now());
         val inTime = oldUserVote.isEmpty() || LocalDateTime.now().toLocalTime().isBefore(allowedVoteTime);
 
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
@@ -64,10 +63,7 @@ class UserVoteControllerTest extends AbstractControllerTest {
             int newId = created.id();
             newUserVote.setId(newId);
             USER_VOTE_MATCHER.assertMatch(created, newUserVote);
-            val userVoteFromDb = userVoteRepository.findById(newId)
-                    .filter(userVote -> Objects.equals(userVote.getUser().getId(), USER_ID) &&
-                            Objects.equals(userVote.getRestaurant().getId(), RESTAURANT_1_ID)
-                    )
+            val userVoteFromDb = userVoteRepository.getWithRestaurant(newId)
                     .orElseThrow(
                             () -> new ResourceNotFoundException("User vote with id " + newId + " not found")
                     );
