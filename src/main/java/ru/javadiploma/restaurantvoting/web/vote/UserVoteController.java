@@ -44,7 +44,7 @@ public class UserVoteController {
         );
     }
 
-    @GetMapping("/all")
+    @GetMapping("/history")
     public List<UserVote> getAll(@AuthenticationPrincipal AuthUser authUser) {
         return userVoteRepository.getAllByUserOrderByVoteDateDesc(userRepository.getById(authUser.id()));
     }
